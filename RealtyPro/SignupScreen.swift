@@ -14,7 +14,7 @@ struct SignupScreen: View {
         ZStack {
             ImageContainerView()
             VStack() {
-                AppTagView(title: "Singup")
+                AppTagView(title: "Signup")
                 SignupFieldsView()
             }
             .background(.ultraThinMaterial)
