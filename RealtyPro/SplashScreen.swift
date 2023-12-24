@@ -2,8 +2,6 @@
 //  SplashScreen.swift
 //  RealtyPro
 //
-//  Created by Macbook on 23/12/2023.
-//
 
 import SwiftUI
 
@@ -19,10 +17,9 @@ struct SplashScreen: View {
                 TagLineText()
                     .padding(20)
             }
-            
         }
         .onAppear {
-            Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+            Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
                 withAnimation {
                     self.isActive = true
                 }

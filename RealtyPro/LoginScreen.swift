@@ -2,23 +2,26 @@
 //  LoginScreen.swift
 //  RealtyPro
 //
-//  Created by Macbook on 23/12/2023.
-//
+
 
 import SwiftUI
 
 struct LoginScreen: View {
+    
+    @StateObject private var viewModel = AuthenticationViewModel()
+    
     var body: some View {
                 
         ZStack {
             ImageContainerView()
-            VStack {
-                WelcomeTextView()
+            VStack() {
+                AppTagView(title: "RealtyPro")
+                LoginFieldsView()
                 LoginChoicesView()
             }
             .background(.ultraThinMaterial)
             .clipShape(RoundedRectangle(cornerRadius: 20))
-            .padding(20)
+            .padding(.horizontal, 20)
             
         }
         .ignoresSafeArea(.all)
@@ -38,48 +41,89 @@ struct ImageContainerView: View {
     }
 }
 
-struct WelcomeTextView: View {
+struct AppTagView: View {
+    var title: String
     var body: some View {
-        Text("RealtyPro")
-            .font(.title)
-            .bold()
-            .foregroundStyle(.tint)
-            .padding(20)
+        HStack {
+            Text(title)
+                .font(.largeTitle)
+                .bold()
+                .foregroundStyle(.white)
+                .padding(20)
+            
+            Spacer()
+        }
     }
 }
 
 
 struct LoginChoicesView: View {
+    
     var body: some View {
         VStack(spacing: 16) {
+            
             Button(action: {
                 print("Login")
             }, label: {
                 Text("Login")
+                    .frame(height: 20)
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .padding()
                     .foregroundColor(.white)
                     .background(Color.blue)
-                    .cornerRadius(10)
+                    .cornerRadius(6)
                     .bold()
             })
             
-            Button(action: {
-                print("Signup")
-            }, label: {
+            Text("Or")
+                .foregroundStyle(.white)
+                .bold()
+            
+            NavigationLink {
+                SignupScreen()
+            } label: {
                 Text("Signup")
+                    .frame(height: 20)
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .padding()
                     .foregroundColor(.white)
                     .background(Color.green)
-                    .cornerRadius(10)
+                    .cornerRadius(6)
                     .bold()
-            })
+            }
         }
-        .padding(20)
+        .padding(20)        
     }
 }
 
+struct LoginFieldsView: View {
+    
+    @State private var email: String = ""
+    @State private var password : String = ""
+    
+    
+    var body: some View {
+        
+        VStack(spacing: -16) {
+            TextField("Email", text: $email)
+                .padding()
+                .frame(height: 44)
+                .background(.white.opacity(0.8))
+                .cornerRadius(6)
+                .padding()
+            
+            SecureField("Password", text: $password)
+                .padding()
+                .frame(height: 44)
+                .background(.white.opacity(0.8))
+                .cornerRadius(6)
+                .padding()
+            
+        }
+        
+    }
+    
+}
 
 
 #Preview {
