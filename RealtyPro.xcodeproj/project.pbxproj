@@ -84,7 +84,7 @@
 		FAB6B77A2B371B2E0012495B /* RealtyPro */ = {
 			isa = PBXGroup;
 			children = (
-				FAB6B7982B3887BE0012495B /* plist */,
+				FAB6B7992B3887DE0012495B /* GoogleService-Info.plist */,
 				FAB6B77B2B371B2E0012495B /* RealtyProApp.swift */,
 				FAB6B7892B373DBB0012495B /* SplashScreen.swift */,
 				FAB6B78B2B373DF80012495B /* LoginScreen.swift */,
@@ -105,14 +105,6 @@
 				FAB6B7822B371B2F0012495B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		FAB6B7982B3887BE0012495B /* plist */ = {
-			isa = PBXGroup;
-			children = (
-				FAB6B7992B3887DE0012495B /* GoogleService-Info.plist */,
-			);
-			path = plist;
 			sourceTree = "<group>";
 		};
 		FAB6B79B2B388A840012495B /* Frameworks */ = {
