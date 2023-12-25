@@ -19,7 +19,7 @@ struct SplashScreen: View {
             }
         }
         .onAppear {
-            Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
+            Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
                 withAnimation {
                     self.isActive = true
                 }
@@ -39,7 +39,8 @@ struct TagLineText: View {
                     .foregroundStyle(.blue)
                     .font(.largeTitle)
                     .opacity(isAnimated ? 1 : 0)
-                    .animation(.easeInOut(duration: 1))
+//                    .animation(.easeInOut(duration: 1))
+                    .animation(.easeInOut, value: 1)
                 Spacer()
             }
             
@@ -49,7 +50,7 @@ struct TagLineText: View {
                     .foregroundStyle(.black.opacity(0.75))
                     .font(.title)
                     .opacity(isAnimated ? 1 : 0)
-                    .animation(.easeInOut(duration: 1).delay(0.5))
+                    .animation(.easeInOut, value: 1)
                 Spacer()
             }
         }

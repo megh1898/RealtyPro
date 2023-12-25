@@ -43,11 +43,15 @@ final class AuthenticationViewModel: ObservableObject {
     }
     
     func registerUser() {
-        isProcessing = true
+        
         if !email.isValidateEmail()
             || !password.isValidPassword()
             || name.isEmpty
-            || (password != confirmPassword) { return }
+            || (password != confirmPassword) {
+            isProcessCompleted = (true, "Please fill all the fields")
+            return
+        }
+        isProcessing = true
         
         Task {
             do {
