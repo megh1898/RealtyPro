@@ -39,7 +39,6 @@ struct TagLineText: View {
                     .foregroundStyle(.blue)
                     .font(.largeTitle)
                     .opacity(isAnimated ? 1 : 0)
-//                    .animation(.easeInOut(duration: 1))
                     .animation(.easeInOut, value: 1)
                 Spacer()
             }

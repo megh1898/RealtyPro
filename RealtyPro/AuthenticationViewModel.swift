@@ -33,11 +33,9 @@ final class AuthenticationViewModel: ObservableObject {
         
         Task {
             do {
-                let returnedUserData = try await AuthenticationManager.shared.createUser(email: email, password: password)
-                print ("Success")
-                print (returnedUserData)
+                let returnedUserData = try await AuthenticationManager.shared.loginUser(email: email, password: password)
             } catch {
-                print ("Error: \(error)")
+                print("Error: \(error)")
             }
         }
     }
@@ -56,12 +54,10 @@ final class AuthenticationViewModel: ObservableObject {
         Task {
             do {
                 let returnedUserData = try await AuthenticationManager.shared.createUser(email: email, password: password)
-                print ("Success")
                 print (returnedUserData)
                 isProcessing = false
                 isProcessCompleted = (true, "User Registered Successfully")
             } catch {
-                print ("Error: \(error)")
                 isProcessing = false
                 isProcessCompleted = (true, error.localizedDescription)
             }

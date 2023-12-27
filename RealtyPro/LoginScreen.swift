@@ -8,10 +8,7 @@ import SwiftUI
 
 struct LoginScreen: View {
     
-    @StateObject private var viewModel = AuthenticationViewModel()
-    
     var body: some View {
-                
         ZStack {
             ImageContainerView()
             VStack() {
@@ -56,14 +53,16 @@ struct AppTagView: View {
     }
 }
 
-
 struct LoginChoicesView: View {
+    
+    @StateObject private var viewModel = AuthenticationViewModel()
+    @State private var isLoggedIn: Bool = false
     
     var body: some View {
         VStack(spacing: 16) {
             
             Button(action: {
-                print("Login")
+                isLoggedIn.toggle()
             }, label: {
                 Text("Login")
                     .frame(height: 20)
@@ -92,7 +91,10 @@ struct LoginChoicesView: View {
                     .bold()
             }
         }
-        .padding(20)        
+        .padding(20)  
+        .navigationDestination(isPresented: $isLoggedIn) {
+            AppTabbar()
+        }
     }
 }
 
@@ -100,7 +102,6 @@ struct LoginFieldsView: View {
     
     @State private var email: String = ""
     @State private var password : String = ""
-    
     
     var body: some View {
         
@@ -122,9 +123,7 @@ struct LoginFieldsView: View {
         }
         
     }
-    
 }
-
 
 #Preview {
     LoginScreen()
