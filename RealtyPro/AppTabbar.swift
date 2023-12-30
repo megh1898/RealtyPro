@@ -24,24 +24,31 @@ struct AppTabbar: View {
                     }
                     .tag(1)
                 
-                Text("Third Tab")
+                AddNewPropertyScreen()
                     .tabItem {
-                        Image(systemName: "location.magnifyingglass")
-                        Text("Search")
+                        Image(systemName: "rectangle.stack.fill.badge.plus")
+                        Text("Add New")
                     }
                     .tag(2)
                 
                 Text("Forth Tab")
                     .tabItem {
-                        Image(systemName: "person.fill")
+                        Image(systemName: "magnifyingglass.circle.fill")
                         Text("Search")
                     }
                     .tag(3)
+                
+                ProfileScreen()
+                    .tabItem {
+                        Image(systemName: "person.fill")
+                        Text("Profile")
+                    }
+                    .tag(4)
             }
             .accentColor(.blue)
             .toolbar(.hidden, for: .navigationBar)
             .onAppear {
-                let user = try? AuthenticationManager.shared.getAuthenticatedUser()
+                let _ = try? AuthenticationManager.shared.getAuthenticatedUser()
             }
         }
     }

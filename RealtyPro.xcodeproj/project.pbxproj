@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		FA4796542B3CB92B00098B9F /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4796532B3CB92B00098B9F /* HomeScreen.swift */; };
 		FA4796562B3CC03700098B9F /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4796552B3CC03700098B9F /* AsyncImageView.swift */; };
+		FA4796582B409ED600098B9F /* AllPropertiesListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4796572B409ED600098B9F /* AllPropertiesListScreen.swift */; };
+		FA47965A2B40A0FE00098B9F /* AddNewPropertyScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4796592B40A0FE00098B9F /* AddNewPropertyScreen.swift */; };
+		FA47965C2B40B01D00098B9F /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA47965B2B40B01D00098B9F /* ImagePicker.swift */; };
+		FA47965E2B40B1E000098B9F /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA47965D2B40B1E000098B9F /* ProfileScreen.swift */; };
+		FA4796602B40B6F700098B9F /* PropertyDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA47965F2B40B6F700098B9F /* PropertyDetailScreen.swift */; };
 		FAB6B77C2B371B2E0012495B /* RealtyProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB6B77B2B371B2E0012495B /* RealtyProApp.swift */; };
 		FAB6B7802B371B2F0012495B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAB6B77F2B371B2F0012495B /* Assets.xcassets */; };
 		FAB6B7832B371B2F0012495B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAB6B7822B371B2F0012495B /* Preview Assets.xcassets */; };
@@ -34,6 +39,11 @@
 /* Begin PBXFileReference section */
 		FA4796532B3CB92B00098B9F /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		FA4796552B3CC03700098B9F /* AsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
+		FA4796572B409ED600098B9F /* AllPropertiesListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPropertiesListScreen.swift; sourceTree = "<group>"; };
+		FA4796592B40A0FE00098B9F /* AddNewPropertyScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPropertyScreen.swift; sourceTree = "<group>"; };
+		FA47965B2B40B01D00098B9F /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		FA47965D2B40B1E000098B9F /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
+		FA47965F2B40B6F700098B9F /* PropertyDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyDetailScreen.swift; sourceTree = "<group>"; };
 		FAB6B7782B371B2E0012495B /* RealtyPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealtyPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAB6B77B2B371B2E0012495B /* RealtyProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtyProApp.swift; sourceTree = "<group>"; };
 		FAB6B77F2B371B2F0012495B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -101,6 +111,11 @@
 				FAB6B7AD2B38AF7A0012495B /* AppTabbar.swift */,
 				FA4796532B3CB92B00098B9F /* HomeScreen.swift */,
 				FA4796552B3CC03700098B9F /* AsyncImageView.swift */,
+				FA4796572B409ED600098B9F /* AllPropertiesListScreen.swift */,
+				FA4796592B40A0FE00098B9F /* AddNewPropertyScreen.swift */,
+				FA47965B2B40B01D00098B9F /* ImagePicker.swift */,
+				FA47965D2B40B1E000098B9F /* ProfileScreen.swift */,
+				FA47965F2B40B6F700098B9F /* PropertyDetailScreen.swift */,
 			);
 			path = RealtyPro;
 			sourceTree = "<group>";
@@ -206,9 +221,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA47965C2B40B01D00098B9F /* ImagePicker.swift in Sources */,
+				FA47965E2B40B1E000098B9F /* ProfileScreen.swift in Sources */,
+				FA4796582B409ED600098B9F /* AllPropertiesListScreen.swift in Sources */,
+				FA47965A2B40A0FE00098B9F /* AddNewPropertyScreen.swift in Sources */,
 				FAB6B78A2B373DBB0012495B /* SplashScreen.swift in Sources */,
 				FAB6B7AC2B38A8710012495B /* String+Extensions.swift in Sources */,
 				FAB6B7A72B38A13D0012495B /* SignupScreen.swift in Sources */,
+				FA4796602B40B6F700098B9F /* PropertyDetailScreen.swift in Sources */,
 				FA4796562B3CC03700098B9F /* AsyncImageView.swift in Sources */,
 				FAB6B7A32B388D390012495B /* AuthenticationManager.swift in Sources */,
 				FAB6B77C2B371B2E0012495B /* RealtyProApp.swift in Sources */,

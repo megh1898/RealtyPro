@@ -19,11 +19,13 @@ struct HomeScreen: View {
                 
                 TitleView(title: "Properties Near You")
                 
-                SuggestedListingView()
+                PropertyListingView()
+                
+                ViewAllView()
                 
             }
         }
-        .navigationBarTitle("Home", displayMode: .automatic)
+        .navigationBarTitle("Home", displayMode: .large)
     }
 }
 
@@ -43,11 +45,8 @@ struct TitleView: View {
     }
 }
 
-struct SuggestedListingView :View {
+struct PropertyListingView :View {
     var body: some View {
-        let columns = [
-            GridItem(.adaptive(minimum: 2, maximum: 2))
-            ]
         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
             ForEach(0..<4, id: \.self) { index in
                 SecondListItemView(index: index)
@@ -63,7 +62,7 @@ struct CategoriesView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             ScrollViewReader { scrollView in
                 HStack(spacing: 20) {
-                    ForEach(0..<5) { index in
+                    ForEach(0..<4) { index in
                         ListItemView(index: index)
                             .id(index)
                     }
@@ -101,13 +100,11 @@ struct SecondListItemView: View {
     
     var body: some View {
         VStack {
-//            AsyncImageView(url: "https://picsum.photos/200")
-            
             AsyncImage(url: URL(string: "https://picsum.photos/200")) { image in
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    
+                
                 
             } placeholder: {
                 Color.blue.opacity(0.2)
@@ -123,8 +120,21 @@ struct SecondListItemView: View {
             Spacer()
         }
         .background(Color.gray.opacity(0.2))
-//        .frame(width: 200, height: 250)
         .cornerRadius(10)
+    }
+}
+
+struct ViewAllView: View {
+    var body: some View {
+        NavigationLink {
+            AllPropertiesListScreen()
+        } label: {
+            Text("View All Properties")
+                .frame(maxWidth: .infinity)
+                .bold()
+        }
+        .buttonStyle(.borderedProminent)
+        .padding(.horizontal)
     }
 }
 

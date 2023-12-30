@@ -19,3 +19,13 @@ struct AsyncImageView: View {
         .frame(width: 200, height: 200)
     }
 }
+
+struct CustomImageView: View{
+    var image: UIImage
+    var body: some View {
+        Image(uiImage: image)
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .cornerRadius(10)
+    }
+}
