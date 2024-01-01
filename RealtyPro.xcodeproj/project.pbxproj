@@ -14,6 +14,9 @@
 		FA47965C2B40B01D00098B9F /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA47965B2B40B01D00098B9F /* ImagePicker.swift */; };
 		FA47965E2B40B1E000098B9F /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA47965D2B40B1E000098B9F /* ProfileScreen.swift */; };
 		FA4796602B40B6F700098B9F /* PropertyDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA47965F2B40B6F700098B9F /* PropertyDetailScreen.swift */; };
+		FA4796622B432C3D00098B9F /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4796612B432C3D00098B9F /* FirestoreManager.swift */; };
+		FA4796652B432CE200098B9F /* NewPropertyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4796642B432CE200098B9F /* NewPropertyModel.swift */; };
+		FA4796672B432D6A00098B9F /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FA4796662B432D6A00098B9F /* FirebaseStorage */; };
 		FAB6B77C2B371B2E0012495B /* RealtyProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB6B77B2B371B2E0012495B /* RealtyProApp.swift */; };
 		FAB6B7802B371B2F0012495B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAB6B77F2B371B2F0012495B /* Assets.xcassets */; };
 		FAB6B7832B371B2F0012495B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAB6B7822B371B2F0012495B /* Preview Assets.xcassets */; };
@@ -44,6 +47,8 @@
 		FA47965B2B40B01D00098B9F /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		FA47965D2B40B1E000098B9F /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		FA47965F2B40B6F700098B9F /* PropertyDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyDetailScreen.swift; sourceTree = "<group>"; };
+		FA4796612B432C3D00098B9F /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
+		FA4796642B432CE200098B9F /* NewPropertyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPropertyModel.swift; sourceTree = "<group>"; };
 		FAB6B7782B371B2E0012495B /* RealtyPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealtyPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAB6B77B2B371B2E0012495B /* RealtyProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtyProApp.swift; sourceTree = "<group>"; };
 		FAB6B77F2B371B2F0012495B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -66,6 +71,7 @@
 				FAB6B7932B3887A90012495B /* FirebaseAnalyticsSwift in Frameworks */,
 				FAB6B79D2B388A840012495B /* FirebaseAuth in Frameworks */,
 				FAB6B78F2B3887A90012495B /* FirebaseAnalytics in Frameworks */,
+				FA4796672B432D6A00098B9F /* FirebaseStorage in Frameworks */,
 				FAB6B7912B3887A90012495B /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				FAB6B7972B3887A90012495B /* FirebaseAppCheck in Frameworks */,
 				FAB6B7AA2B38A69E0012495B /* IQKeyboardManagerSwift in Frameworks */,
@@ -78,6 +84,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA4796632B432CCF00098B9F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FA4796642B432CE200098B9F /* NewPropertyModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		FAB6B76F2B371B2E0012495B = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +112,7 @@
 		FAB6B77A2B371B2E0012495B /* RealtyPro */ = {
 			isa = PBXGroup;
 			children = (
+				FA4796632B432CCF00098B9F /* Models */,
 				FAB6B7992B3887DE0012495B /* GoogleService-Info.plist */,
 				FAB6B77B2B371B2E0012495B /* RealtyProApp.swift */,
 				FAB6B7892B373DBB0012495B /* SplashScreen.swift */,
@@ -116,6 +131,7 @@
 				FA47965B2B40B01D00098B9F /* ImagePicker.swift */,
 				FA47965D2B40B1E000098B9F /* ProfileScreen.swift */,
 				FA47965F2B40B6F700098B9F /* PropertyDetailScreen.swift */,
+				FA4796612B432C3D00098B9F /* FirestoreManager.swift */,
 			);
 			path = RealtyPro;
 			sourceTree = "<group>";
@@ -161,6 +177,7 @@
 				FAB6B79E2B388A950012495B /* FirebaseFirestore */,
 				FAB6B7A02B388A950012495B /* FirebaseFirestoreSwift */,
 				FAB6B7A92B38A69E0012495B /* IQKeyboardManagerSwift */,
+				FA4796662B432D6A00098B9F /* FirebaseStorage */,
 			);
 			productName = RealtyPro;
 			productReference = FAB6B7782B371B2E0012495B /* RealtyPro.app */;
@@ -224,6 +241,7 @@
 				FA47965C2B40B01D00098B9F /* ImagePicker.swift in Sources */,
 				FA47965E2B40B1E000098B9F /* ProfileScreen.swift in Sources */,
 				FA4796582B409ED600098B9F /* AllPropertiesListScreen.swift in Sources */,
+				FA4796652B432CE200098B9F /* NewPropertyModel.swift in Sources */,
 				FA47965A2B40A0FE00098B9F /* AddNewPropertyScreen.swift in Sources */,
 				FAB6B78A2B373DBB0012495B /* SplashScreen.swift in Sources */,
 				FAB6B7AC2B38A8710012495B /* String+Extensions.swift in Sources */,
@@ -236,6 +254,7 @@
 				FAB6B78C2B373DF80012495B /* LoginScreen.swift in Sources */,
 				FAB6B7A52B3890410012495B /* AuthenticationViewModel.swift in Sources */,
 				FAB6B7AE2B38AF7A0012495B /* AppTabbar.swift in Sources */,
+				FA4796622B432C3D00098B9F /* FirestoreManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,6 +483,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		FA4796662B432D6A00098B9F /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FAB6B78D2B3887A90012495B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
 		FAB6B78E2B3887A90012495B /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FAB6B78D2B3887A90012495B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

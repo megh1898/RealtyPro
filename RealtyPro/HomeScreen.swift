@@ -9,23 +9,32 @@ import SwiftUI
 struct HomeScreen: View {
     var body: some View {
         
-        ScrollView(.vertical) {
+        VStack {
             
-            VStack(spacing: 4) {
+            Text("Hello, John")
+                .font(.title)
+                .bold()
+                .padding(.horizontal, 1)
+            
+            ScrollView(.vertical) {
                 
-                TitleView(title: "Categories")
-                
-                CategoriesView()
-                
-                TitleView(title: "Properties Near You")
-                
-                PropertyListingView()
-                
-                ViewAllView()
-                
+                VStack(spacing: 4) {
+                    
+                    TitleView(title: "Categories")
+                    
+                    CategoriesView()
+                    
+                    Divider()
+                    
+                    TitleView(title: "Properties Near You")
+                    
+                    PropertyListingView()
+                    
+                    ViewAllView()
+                    
+                }
             }
         }
-        .navigationBarTitle("Home", displayMode: .large)
     }
 }
 
@@ -36,7 +45,7 @@ struct TitleView: View {
     var body: some View {
         HStack {
             Text(title)
-                .font(.title)
+                .font(.title2)
                 .bold()
                 .padding(.horizontal)
             
@@ -134,7 +143,7 @@ struct ViewAllView: View {
                 .bold()
         }
         .buttonStyle(.borderedProminent)
-        .padding(.horizontal)
+        .padding([.horizontal, .bottom], 8)
     }
 }
 

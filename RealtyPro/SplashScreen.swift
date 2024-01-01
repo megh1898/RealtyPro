@@ -19,7 +19,7 @@ struct SplashScreen: View {
             }
         }
         .onAppear {
-            Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+            Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in
                 withAnimation {
                     self.isActive = true
                 }

@@ -5,13 +5,6 @@
 
 
 import SwiftUI
-struct Property: Identifiable {
-    var id = UUID()
-    var name: String
-    var location: String
-    var details: String
-    var price: String
-}
 
 struct AddNewPropertyScreen: View {
     
@@ -48,17 +41,36 @@ struct AddNewPropertyScreen: View {
                     
                     Section {
                         Button(action: {
-                            let _ = Property(name: name, location: location, details: details, price: price)
+                            let item = Property(name: name, location: location, details: details, price: price, imagePaths: [])
+                            addProperty(property: item, images: selectedImages)
                         }, label: {
                             Text("Add Property")
                                 .frame(maxWidth: .infinity)
                         })
+                        
                     }
                 }
             }
             .navigationBarTitle("Add New Property")
             .sheet(isPresented: $isImagePickerPresented) {
                 ImagePicker(selectedImages: $selectedImages)
+            }
+        }
+    }
+    
+    private func addProperty(property: Property, images: [UIImage]) {
+        // Check for empty fields or insufficient images here if needed
+
+        // Save the property to Firestore
+        FirestoreManager.shared.savePropertyToFirestore(property: property, images: images) { error in
+            if let error = error {
+                // Handle the error case
+                print("Error saving property to Firestore: \(error.localizedDescription)")
+                // You may show an alert or perform other error-handling actions
+            } else {
+                // Handle the success case
+                print("Property saved successfully to Firestore")
+                // You may navigate to another screen, show a success message, etc.
             }
         }
     }

@@ -56,14 +56,13 @@ struct AppTagView: View {
 struct LoginChoicesView: View {
     
     @StateObject private var viewModel = AuthenticationViewModel()
-    @State private var isLoggedIn: Bool = false
     
     var body: some View {
         VStack(spacing: 16) {
             
-            Button(action: {
-                isLoggedIn.toggle()
-            }, label: {
+            NavigationLink {
+                AppTabbar()
+            } label: {
                 Text("Login")
                     .frame(height: 20)
                     .frame(minWidth: 0, maxWidth: .infinity)
@@ -72,7 +71,7 @@ struct LoginChoicesView: View {
                     .background(Color.blue)
                     .cornerRadius(6)
                     .bold()
-            })
+            }
             
             Text("Or")
                 .foregroundStyle(.white)
@@ -91,10 +90,7 @@ struct LoginChoicesView: View {
                     .bold()
             }
         }
-        .padding(20)  
-        .navigationDestination(isPresented: $isLoggedIn) {
-            AppTabbar()
-        }
+        .padding(20)
     }
 }
 
