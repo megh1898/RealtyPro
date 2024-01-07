@@ -49,4 +49,29 @@ class AuthenticationManager: ObservableObject {
         return AuthDataResultModel(user: user)
     }
     
+    func registerUserInDatabase(user: AuthDataResultModel) async throws -> (Bool, String) {
+        let db = Firestore.firestore()
+        let usersCollection = db.collection("users")
+
+        do {
+            let document = try await usersCollection.document(user.uid).getDocument()
+
+            if document.exists {
+                return (false, "User with the following email already exists")
+            } else {
+                let userData: [String: Any] = [
+                    "email": user.email ?? "",
+                    "name": user.name ?? "",
+                    "id": user.uid
+                ]
+
+                try await usersCollection.document(user.uid).setData(userData)
+
+                return (true, "User registered successfully")
+            }
+        } catch {
+            return (false, "Something went wrong while registering the user")
+        }
+    }
+
 }

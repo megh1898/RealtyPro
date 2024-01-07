@@ -9,13 +9,14 @@ import SwiftUI
 
 struct SignupScreen: View {
         
+    @ObservedObject var viewModel: AuthenticationViewModel
     var body: some View {
                 
         ZStack {
             ImageContainerView()
             VStack() {
                 AppTagView(title: "Signup")
-                SignupFieldsView()
+                SignupFieldsView(viewModel: viewModel)
             }
             .background(.ultraThinMaterial)
             .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -23,13 +24,16 @@ struct SignupScreen: View {
             
         }
         .ignoresSafeArea(.all)
+        .navigationDestination(isPresented: $viewModel.isProcessCompleted.0) {
+            AppTabbar()
+        }
     }
 }
 
 
 struct SignupFieldsView: View {
     
-    @StateObject private var viewModel = AuthenticationViewModel()
+    @ObservedObject var viewModel: AuthenticationViewModel
 
     var body: some View {
         
@@ -60,19 +64,8 @@ struct SignupFieldsView: View {
                 ProgressCustomView(title: "Signing Up...")
             }
         }
-        .alert(isPresented: $viewModel.isProcessCompleted.0) {
-            Alert(
-                title: Text("Alert"),
-                message: Text(viewModel.isProcessCompleted.1),
-                dismissButton: .default(Text("OK"))
-            )
-        }
     }
     
-}
-
-#Preview {
-    SignupScreen()
 }
 
 

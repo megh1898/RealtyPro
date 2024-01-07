@@ -37,6 +37,7 @@
 		FAB6B7AA2B38A69E0012495B /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FAB6B7A92B38A69E0012495B /* IQKeyboardManagerSwift */; };
 		FAB6B7AC2B38A8710012495B /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB6B7AB2B38A8710012495B /* String+Extensions.swift */; };
 		FAB6B7AE2B38AF7A0012495B /* AppTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB6B7AD2B38AF7A0012495B /* AppTabbar.swift */; };
+		FABB49BA2B4B143400230FD6 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB49B92B4B143400230FD6 /* UserDefaults.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		FAB6B7A62B38A13D0012495B /* SignupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupScreen.swift; sourceTree = "<group>"; };
 		FAB6B7AB2B38A8710012495B /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		FAB6B7AD2B38AF7A0012495B /* AppTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabbar.swift; sourceTree = "<group>"; };
+		FABB49B92B4B143400230FD6 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,26 +114,16 @@
 		FAB6B77A2B371B2E0012495B /* RealtyPro */ = {
 			isa = PBXGroup;
 			children = (
-				FA4796632B432CCF00098B9F /* Models */,
 				FAB6B7992B3887DE0012495B /* GoogleService-Info.plist */,
 				FAB6B77B2B371B2E0012495B /* RealtyProApp.swift */,
-				FAB6B7892B373DBB0012495B /* SplashScreen.swift */,
-				FAB6B78B2B373DF80012495B /* LoginScreen.swift */,
-				FAB6B7A42B3890410012495B /* AuthenticationViewModel.swift */,
-				FAB6B7A62B38A13D0012495B /* SignupScreen.swift */,
-				FAB6B77F2B371B2F0012495B /* Assets.xcassets */,
+				FABB49B72B4AF7E900230FD6 /* ViewModels */,
+				FABB49B62B4AF7D300230FD6 /* Tabbar */,
+				FABB49B52B4AF7C100230FD6 /* Extensions */,
+				FABB49B82B4AF80A00230FD6 /* DataManagers */,
+				FABB49B42B4AF79A00230FD6 /* Screens */,
+				FA4796632B432CCF00098B9F /* Models */,
 				FAB6B7812B371B2F0012495B /* Preview Content */,
-				FAB6B7A22B388D390012495B /* AuthenticationManager.swift */,
-				FAB6B7AB2B38A8710012495B /* String+Extensions.swift */,
-				FAB6B7AD2B38AF7A0012495B /* AppTabbar.swift */,
-				FA4796532B3CB92B00098B9F /* HomeScreen.swift */,
-				FA4796552B3CC03700098B9F /* AsyncImageView.swift */,
-				FA4796572B409ED600098B9F /* AllPropertiesListScreen.swift */,
-				FA4796592B40A0FE00098B9F /* AddNewPropertyScreen.swift */,
-				FA47965B2B40B01D00098B9F /* ImagePicker.swift */,
-				FA47965D2B40B1E000098B9F /* ProfileScreen.swift */,
-				FA47965F2B40B6F700098B9F /* PropertyDetailScreen.swift */,
-				FA4796612B432C3D00098B9F /* FirestoreManager.swift */,
+				FAB6B77F2B371B2F0012495B /* Assets.xcassets */,
 			);
 			path = RealtyPro;
 			sourceTree = "<group>";
@@ -149,6 +141,57 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FABB49B42B4AF79A00230FD6 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				FAB6B7892B373DBB0012495B /* SplashScreen.swift */,
+				FAB6B78B2B373DF80012495B /* LoginScreen.swift */,
+				FAB6B7A62B38A13D0012495B /* SignupScreen.swift */,
+				FA4796532B3CB92B00098B9F /* HomeScreen.swift */,
+				FA4796572B409ED600098B9F /* AllPropertiesListScreen.swift */,
+				FA4796592B40A0FE00098B9F /* AddNewPropertyScreen.swift */,
+				FA47965D2B40B1E000098B9F /* ProfileScreen.swift */,
+				FA47965F2B40B6F700098B9F /* PropertyDetailScreen.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		FABB49B52B4AF7C100230FD6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FA47965B2B40B01D00098B9F /* ImagePicker.swift */,
+				FA4796552B3CC03700098B9F /* AsyncImageView.swift */,
+				FAB6B7AB2B38A8710012495B /* String+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		FABB49B62B4AF7D300230FD6 /* Tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				FAB6B7AD2B38AF7A0012495B /* AppTabbar.swift */,
+			);
+			path = Tabbar;
+			sourceTree = "<group>";
+		};
+		FABB49B72B4AF7E900230FD6 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				FAB6B7A42B3890410012495B /* AuthenticationViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		FABB49B82B4AF80A00230FD6 /* DataManagers */ = {
+			isa = PBXGroup;
+			children = (
+				FAB6B7A22B388D390012495B /* AuthenticationManager.swift */,
+				FA4796612B432C3D00098B9F /* FirestoreManager.swift */,
+				FABB49B92B4B143400230FD6 /* UserDefaults.swift */,
+			);
+			path = DataManagers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,6 +295,7 @@
 				FAB6B77C2B371B2E0012495B /* RealtyProApp.swift in Sources */,
 				FA4796542B3CB92B00098B9F /* HomeScreen.swift in Sources */,
 				FAB6B78C2B373DF80012495B /* LoginScreen.swift in Sources */,
+				FABB49BA2B4B143400230FD6 /* UserDefaults.swift in Sources */,
 				FAB6B7A52B3890410012495B /* AuthenticationViewModel.swift in Sources */,
 				FAB6B7AE2B38AF7A0012495B /* AppTabbar.swift in Sources */,
 				FA4796622B432C3D00098B9F /* FirestoreManager.swift in Sources */,

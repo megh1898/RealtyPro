@@ -17,23 +17,26 @@ enum CustomError: Error {
 final class AuthenticationViewModel: ObservableObject {
     
     @Published var name = ""
-    @Published var email = ""
-    @Published var password = ""
+    @Published var email = "megh@gmail.com"
+    @Published var password = "12121212"
     @Published var confirmPassword = ""
     
     @Published var isProcessing = false
     @Published var isProcessCompleted: (Bool, String) = (false, "")
+    @Published var isInvalidLogin = false
     
     func login() {
         
-        guard !email.isEmpty, !password.isEmpty else {
-            print ("No email or password found.")
+        if !email.isValidateEmail() || !password.isValidPassword() {
+            isInvalidLogin = true
             return
         }
         
         Task {
             do {
-                let returnedUserData = try await AuthenticationManager.shared.loginUser(email: email, password: password)
+                let _ = try await AuthenticationManager.shared.loginUser(email: email, password: password)
+                isProcessCompleted = (true, "")
+                AppUtility.shared.email = email                
             } catch {
                 print("Error: \(error)")
             }
@@ -54,9 +57,9 @@ final class AuthenticationViewModel: ObservableObject {
         Task {
             do {
                 let returnedUserData = try await AuthenticationManager.shared.createUser(email: email, password: password)
-                print (returnedUserData)
+                let result = try await AuthenticationManager.shared.registerUserInDatabase(user: returnedUserData)
                 isProcessing = false
-                isProcessCompleted = (true, "User Registered Successfully")
+                isProcessCompleted = result
             } catch {
                 isProcessing = false
                 isProcessCompleted = (true, error.localizedDescription)
