@@ -38,6 +38,8 @@
 		FAB6B7AC2B38A8710012495B /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB6B7AB2B38A8710012495B /* String+Extensions.swift */; };
 		FAB6B7AE2B38AF7A0012495B /* AppTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB6B7AD2B38AF7A0012495B /* AppTabbar.swift */; };
 		FABB49BA2B4B143400230FD6 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB49B92B4B143400230FD6 /* UserDefaults.swift */; };
+		FABB49BC2B4B159A00230FD6 /* ProfileInformationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB49BB2B4B159A00230FD6 /* ProfileInformationScreen.swift */; };
+		FABB49BF2B4B1E1100230FD6 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = FABB49BE2B4B1E1100230FD6 /* SDWebImageSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +65,7 @@
 		FAB6B7AB2B38A8710012495B /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		FAB6B7AD2B38AF7A0012495B /* AppTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabbar.swift; sourceTree = "<group>"; };
 		FABB49B92B4B143400230FD6 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		FABB49BB2B4B159A00230FD6 /* ProfileInformationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInformationScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +81,7 @@
 				FAB6B7972B3887A90012495B /* FirebaseAppCheck in Frameworks */,
 				FAB6B7AA2B38A69E0012495B /* IQKeyboardManagerSwift in Frameworks */,
 				FAB6B7952B3887A90012495B /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				FABB49BF2B4B1E1100230FD6 /* SDWebImageSwiftUI in Frameworks */,
 				FAB6B79F2B388A950012495B /* FirebaseFirestore in Frameworks */,
 				FAB6B7A12B388A950012495B /* FirebaseFirestoreSwift in Frameworks */,
 			);
@@ -154,6 +158,7 @@
 				FA4796592B40A0FE00098B9F /* AddNewPropertyScreen.swift */,
 				FA47965D2B40B1E000098B9F /* ProfileScreen.swift */,
 				FA47965F2B40B6F700098B9F /* PropertyDetailScreen.swift */,
+				FABB49BB2B4B159A00230FD6 /* ProfileInformationScreen.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -221,6 +226,7 @@
 				FAB6B7A02B388A950012495B /* FirebaseFirestoreSwift */,
 				FAB6B7A92B38A69E0012495B /* IQKeyboardManagerSwift */,
 				FA4796662B432D6A00098B9F /* FirebaseStorage */,
+				FABB49BE2B4B1E1100230FD6 /* SDWebImageSwiftUI */,
 			);
 			productName = RealtyPro;
 			productReference = FAB6B7782B371B2E0012495B /* RealtyPro.app */;
@@ -253,6 +259,7 @@
 			packageReferences = (
 				FAB6B78D2B3887A90012495B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				FAB6B7A82B38A69E0012495B /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				FABB49BD2B4B1E1100230FD6 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = FAB6B7792B371B2E0012495B /* Products */;
 			projectDirPath = "";
@@ -288,6 +295,7 @@
 				FA47965A2B40A0FE00098B9F /* AddNewPropertyScreen.swift in Sources */,
 				FAB6B78A2B373DBB0012495B /* SplashScreen.swift in Sources */,
 				FAB6B7AC2B38A8710012495B /* String+Extensions.swift in Sources */,
+				FABB49BC2B4B159A00230FD6 /* ProfileInformationScreen.swift in Sources */,
 				FAB6B7A72B38A13D0012495B /* SignupScreen.swift in Sources */,
 				FA4796602B40B6F700098B9F /* PropertyDetailScreen.swift in Sources */,
 				FA4796562B3CC03700098B9F /* AsyncImageView.swift in Sources */,
@@ -524,6 +532,14 @@
 				minimumVersion = 6.5.16;
 			};
 		};
+		FABB49BD2B4B1E1100230FD6 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.6;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -576,6 +592,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FAB6B7A82B38A69E0012495B /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
+		};
+		FABB49BE2B4B1E1100230FD6 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FABB49BD2B4B1E1100230FD6 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

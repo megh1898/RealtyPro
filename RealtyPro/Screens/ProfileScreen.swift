@@ -11,7 +11,6 @@ struct ProfileScreen: View {
             VStack {
                                 
                 Form {
-                    
                     Section {
                         HStack {
                             Spacer()

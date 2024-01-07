@@ -59,18 +59,11 @@ struct AddNewPropertyScreen: View {
     }
     
     private func addProperty(property: Property, images: [UIImage]) {
-        // Check for empty fields or insufficient images here if needed
-
-        // Save the property to Firestore
         FirestoreManager.shared.savePropertyToFirestore(property: property, images: images) { error in
             if let error = error {
-                // Handle the error case
                 print("Error saving property to Firestore: \(error.localizedDescription)")
-                // You may show an alert or perform other error-handling actions
             } else {
-                // Handle the success case
                 print("Property saved successfully to Firestore")
-                // You may navigate to another screen, show a success message, etc.
             }
         }
     }

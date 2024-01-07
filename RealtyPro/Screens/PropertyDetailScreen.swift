@@ -2,67 +2,65 @@
 //  PropertyDetailScreen.swift
 //  RealtyPro
 //
-
-
 import SwiftUI
-
-//struct PropertyDetailScreen: View {
-//    var body: some View {
-//        NavigationView {
-//            VStack {
-//                
-//                Image("home")
-////                        .resizable()
-//                    .aspectRatio(contentMode: .fill)
-//                    .frame(height: 300)
-//                
-//                VStack(alignment: .leading) {
-//                    Text("Some Random Property")
-//                        .font(.title)
-//                    
-//                    Text("Some Random Property, Some Random Property, Some Random Property, Some Random Property, Some Random Property, Some Random Property")
-//                        .font(.footnote)
-//                }
-//                
-//                Rectangle()
-//                    .frame(height: 600)
-//            }
-//            
-//        }
-//        .navigationBarTitle("Add New Property")
-//    }
-//}
-
-
-import SwiftUI
+import SDWebImageSwiftUI
+import MapKit
+struct UserLocation: Identifiable {
+    var id = UUID()
+    var coordinate: CLLocationCoordinate2D
+}
 
 struct PropertyDetailScreen: View {
     var property: Property
 
     var body: some View {
-        VStack {
-            // Title and Body
-            VStack(alignment: .leading, spacing: 10) {
-                Text(property.name)
-                    .font(.title)
-                    .bold()
-                    .padding(.top, 10)
+        ZStack {
+            ScrollView {
+                VStack {
+                    WebImage(url: URL(string: "https://picsum.photos/200")!)
+                        .renderingMode(.original)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(height: 310)
+                        .frame(maxWidth: UIScreen.main.bounds.width)
+                        .clipped()
+                    
+                    VStack {
+                        HStack {
+                            Text("location title")
+                                .font(.title3)
+                                .fontWeight(.heavy)
+                                .foregroundColor(.primary)
+                                .lineLimit(3)
+                                .padding(.vertical, 15)
+                            Spacer()
+                        }
+                        .frame(maxWidth: .infinity)
+                        
+                        Text("Location Description")
+                            .multilineTextAlignment(.leading)
+                            .font(.body)
+                            .foregroundColor(Color.primary.opacity(0.9))
+                            .padding(.bottom, 25)
+                            .frame(maxWidth: .infinity)
+                    }
+                    .padding(.horizontal, 20)
 
-                Text("Location: \(property.location)")
-                    .foregroundColor(.gray)
-
-                Text(property.details)
-                    .padding(.top, 10)
-
-                Text("Price: \(property.price)")
-                    .foregroundColor(.blue)
-                    .padding(.top, 5)
-
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity)
+                
             }
-            .padding(15)
-            
-            Spacer()
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationBarTitle(property.name, displayMode: .inline)
+    }
+}
+
+
+
+struct PropertyDetailScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        let property = Property(name: "Toronto", location: "Canada", details: "Best location to live in with family, with all the facilities nearby and a balcony with a sea view", price: "$200,000", imagePaths: [])
+        PropertyDetailScreen(property: property)
     }
 }
