@@ -5,19 +5,16 @@
 import SwiftUI
 import SDWebImageSwiftUI
 import MapKit
-struct UserLocation: Identifiable {
-    var id = UUID()
-    var coordinate: CLLocationCoordinate2D
-}
 
 struct PropertyDetailScreen: View {
-    var property: Property
-
+    @State var property: Property
+    @State private var imageURL: URL?
+    
     var body: some View {
         ZStack {
             ScrollView {
                 VStack {
-                    WebImage(url: URL(string: "https://picsum.photos/200")!)
+                    WebImage(url: imageURL)
                         .renderingMode(.original)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
@@ -25,24 +22,40 @@ struct PropertyDetailScreen: View {
                         .frame(maxWidth: UIScreen.main.bounds.width)
                         .clipped()
                     
-                    VStack {
-                        HStack {
-                            Text("location title")
-                                .font(.title3)
-                                .fontWeight(.heavy)
-                                .foregroundColor(.primary)
-                                .lineLimit(3)
-                                .padding(.vertical, 15)
-                            Spacer()
-                        }
-                        .frame(maxWidth: .infinity)
+                    VStack(alignment: .leading, spacing: 8) {
                         
-                        Text("Location Description")
-                            .multilineTextAlignment(.leading)
-                            .font(.body)
-                            .foregroundColor(Color.primary.opacity(0.9))
-                            .padding(.bottom, 25)
-                            .frame(maxWidth: .infinity)
+                        HStack {
+                            Text(property.name).font(.title).bold()
+                            Spacer()
+                            Button(action: {
+                                
+                            }, label: {
+                                Image(systemName: "heart.fill")
+                                    .font(.title2)
+                                    .tint(.red)
+                            })
+                        }
+                        Divider()
+                        Text(property.location).font(.body)
+                        Text("Price: $\(property.price)").font(.subheadline)
+                        Divider()
+                        Text(property.details).font(.callout)
+                            .foregroundColor(Color.primary.opacity(0.8))
+                        Divider()
+                        
+                        ZStack {
+                            Map(coordinateRegion: .constant(MKCoordinateRegion(
+                                center: CLLocationCoordinate2D(latitude: property.latitude, longitude: property.longitude),
+                                span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+                            )), showsUserLocation: false, userTrackingMode: .none, annotationItems: [property]) { property in
+                                // Add pin to the map
+                                MapPin(coordinate: CLLocationCoordinate2D(latitude: property.latitude, longitude: property.longitude), tint: .red)
+                            }
+                        }
+                        .frame(maxWidth: UIScreen.main.bounds.width)
+                        .frame(height: 200)
+                        .background(Color.gray)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
                     .padding(.horizontal, 20)
 
@@ -52,15 +65,43 @@ struct PropertyDetailScreen: View {
                 
             }
             .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(property.name)
         }
+        .onAppear {
+            FirestoreManager.shared.getImageURL(for: property.imagePaths.first ?? "") { imageURL in
+                if let imageURL = imageURL {
+                    self.imageURL = imageURL
+                } else { }
+            }
+        }
+        .navigationBarItems(trailing:
+                                Button(action: {
+            if let url = URL(string: "tel://\(0123456789)") {
+                UIApplication.shared.open(url)
+            }
+        }) {
+            Image(systemName: "phone.fill")
+                .font(.title3)
+                .foregroundColor(.blue)
+        }
+        )
+        
     }
 }
-
-
-
 struct PropertyDetailScreen_Previews: PreviewProvider {
     static var previews: some View {
-        let property = Property(name: "Toronto", location: "Canada", details: "Best location to live in with family, with all the facilities nearby and a balcony with a sea view", price: "$200,000", imagePaths: [])
-        PropertyDetailScreen(property: property)
+        let sampleProperty = Property(
+            name: "Sample Property",
+            details: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            price: "1,000,000",
+            location: "123 Main St, City",
+            latitude: 37.7749,
+            longitude: -122.4194,
+            filtersType: "Sale",
+            imagePaths: ["https://picsum.photos/200"],
+            owner: "John Doe"
+        )
+
+        PropertyDetailScreen(property: sampleProperty)
     }
 }

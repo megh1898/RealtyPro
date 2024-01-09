@@ -34,9 +34,10 @@ final class AuthenticationViewModel: ObservableObject {
         
         Task {
             do {
-                let _ = try await AuthenticationManager.shared.loginUser(email: email, password: password)
+                let user = try await AuthenticationManager.shared.loginUser(email: email, password: password)
                 isProcessCompleted = (true, "")
-                AppUtility.shared.email = email                
+                AppUtility.shared.email = email
+                AppUtility.shared.userId = user.uid
             } catch {
                 print("Error: \(error)")
             }

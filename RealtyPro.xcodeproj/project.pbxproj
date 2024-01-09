@@ -40,6 +40,11 @@
 		FABB49BA2B4B143400230FD6 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB49B92B4B143400230FD6 /* UserDefaults.swift */; };
 		FABB49BC2B4B159A00230FD6 /* ProfileInformationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB49BB2B4B159A00230FD6 /* ProfileInformationScreen.swift */; };
 		FABB49BF2B4B1E1100230FD6 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = FABB49BE2B4B1E1100230FD6 /* SDWebImageSwiftUI */; };
+		FAFFADA72B4C7C52007ADBE9 /* LocalSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFADA62B4C7C52007ADBE9 /* LocalSearchService.swift */; };
+		FAFFADA92B4C7C96007ADBE9 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFADA82B4C7C96007ADBE9 /* ContentViewModel.swift */; };
+		FAFFADAB2B4C7CF3007ADBE9 /* LocalSearchViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFADAA2B4C7CF3007ADBE9 /* LocalSearchViewData.swift */; };
+		FAFFADAD2B4C7FF6007ADBE9 /* SearchLocationsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFADAC2B4C7FF6007ADBE9 /* SearchLocationsScreen.swift */; };
+		FAFFADAF2B4D205A007ADBE9 /* MyPropertiesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFADAE2B4D205A007ADBE9 /* MyPropertiesScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +71,11 @@
 		FAB6B7AD2B38AF7A0012495B /* AppTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabbar.swift; sourceTree = "<group>"; };
 		FABB49B92B4B143400230FD6 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		FABB49BB2B4B159A00230FD6 /* ProfileInformationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInformationScreen.swift; sourceTree = "<group>"; };
+		FAFFADA62B4C7C52007ADBE9 /* LocalSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSearchService.swift; sourceTree = "<group>"; };
+		FAFFADA82B4C7C96007ADBE9 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		FAFFADAA2B4C7CF3007ADBE9 /* LocalSearchViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSearchViewData.swift; sourceTree = "<group>"; };
+		FAFFADAC2B4C7FF6007ADBE9 /* SearchLocationsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationsScreen.swift; sourceTree = "<group>"; };
+		FAFFADAE2B4D205A007ADBE9 /* MyPropertiesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPropertiesScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +128,7 @@
 		FAB6B77A2B371B2E0012495B /* RealtyPro */ = {
 			isa = PBXGroup;
 			children = (
+				FAFFADA12B4C7000007ADBE9 /* LocationHelpers */,
 				FAB6B7992B3887DE0012495B /* GoogleService-Info.plist */,
 				FAB6B77B2B371B2E0012495B /* RealtyProApp.swift */,
 				FABB49B72B4AF7E900230FD6 /* ViewModels */,
@@ -159,6 +170,8 @@
 				FA47965D2B40B1E000098B9F /* ProfileScreen.swift */,
 				FA47965F2B40B6F700098B9F /* PropertyDetailScreen.swift */,
 				FABB49BB2B4B159A00230FD6 /* ProfileInformationScreen.swift */,
+				FAFFADAC2B4C7FF6007ADBE9 /* SearchLocationsScreen.swift */,
+				FAFFADAE2B4D205A007ADBE9 /* MyPropertiesScreen.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -197,6 +210,16 @@
 				FABB49B92B4B143400230FD6 /* UserDefaults.swift */,
 			);
 			path = DataManagers;
+			sourceTree = "<group>";
+		};
+		FAFFADA12B4C7000007ADBE9 /* LocationHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				FAFFADA62B4C7C52007ADBE9 /* LocalSearchService.swift */,
+				FAFFADA82B4C7C96007ADBE9 /* ContentViewModel.swift */,
+				FAFFADAA2B4C7CF3007ADBE9 /* LocalSearchViewData.swift */,
+			);
+			path = LocationHelpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,6 +317,7 @@
 				FA4796652B432CE200098B9F /* NewPropertyModel.swift in Sources */,
 				FA47965A2B40A0FE00098B9F /* AddNewPropertyScreen.swift in Sources */,
 				FAB6B78A2B373DBB0012495B /* SplashScreen.swift in Sources */,
+				FAFFADAF2B4D205A007ADBE9 /* MyPropertiesScreen.swift in Sources */,
 				FAB6B7AC2B38A8710012495B /* String+Extensions.swift in Sources */,
 				FABB49BC2B4B159A00230FD6 /* ProfileInformationScreen.swift in Sources */,
 				FAB6B7A72B38A13D0012495B /* SignupScreen.swift in Sources */,
@@ -304,7 +328,11 @@
 				FA4796542B3CB92B00098B9F /* HomeScreen.swift in Sources */,
 				FAB6B78C2B373DF80012495B /* LoginScreen.swift in Sources */,
 				FABB49BA2B4B143400230FD6 /* UserDefaults.swift in Sources */,
+				FAFFADAD2B4C7FF6007ADBE9 /* SearchLocationsScreen.swift in Sources */,
+				FAFFADAB2B4C7CF3007ADBE9 /* LocalSearchViewData.swift in Sources */,
 				FAB6B7A52B3890410012495B /* AuthenticationViewModel.swift in Sources */,
+				FAFFADA92B4C7C96007ADBE9 /* ContentViewModel.swift in Sources */,
+				FAFFADA72B4C7C52007ADBE9 /* LocalSearchService.swift in Sources */,
 				FAB6B7AE2B38AF7A0012495B /* AppTabbar.swift in Sources */,
 				FA4796622B432C3D00098B9F /* FirestoreManager.swift in Sources */,
 			);
