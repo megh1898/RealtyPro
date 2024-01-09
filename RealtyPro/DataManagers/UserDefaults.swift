@@ -10,14 +10,9 @@ struct UserDefaultsKeys {
     static let email = "email"
     static let name = "name"
     static let phone = "phone"
-    static let address = "address"
     static let userId = "userId"
-    static let latitude = "latitude"
-    static let longitude = "longitude"
-    static let city = "city"
-    static let country = "country"
-    static let manualLocation = "manualLocation"
-    static let totalBalance = "totalBalance"
+    static let profileImage = "profileImage"
+
     
 }
 
@@ -50,38 +45,11 @@ class AppUtility: NSObject, ObservableObject {
         }
     }
     
-    var latitude: String? {
+    var profileImage: String? {
         didSet {
-            UserDefaults.standard.set(self.latitude, forKey: UserDefaultsKeys.latitude)
+            UserDefaults.standard.set(self.profileImage, forKey: UserDefaultsKeys.profileImage)
         }
     }
     
-    var longitude: String? {
-        didSet {
-            UserDefaults.standard.set(self.longitude, forKey: UserDefaultsKeys.longitude)
-        }
-    }
-    
-    var city: String? {
-        didSet {
-            UserDefaults.standard.set(self.city, forKey: UserDefaultsKeys.city)
-        }
-    }
-    
-    var country: String? {
-        didSet {
-            UserDefaults.standard.set(self.country, forKey: UserDefaultsKeys.country)
-        }
-    }
-    var manualLocation: String? {
-        didSet {
-            UserDefaults.standard.set(self.manualLocation, forKey: UserDefaultsKeys.manualLocation)
-        }
-    }
-    var totalBalance: Int? {
-        didSet {
-            UserDefaults.standard.set(self.totalBalance, forKey: UserDefaultsKeys.totalBalance)
-        }
-    }
 }
 

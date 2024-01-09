@@ -10,7 +10,7 @@ import SDWebImageSwiftUI
 struct MyPropertiesScreen: View {
     
     @State private var properties = [Property]()
-    
+    var isMyProperties = true
     var body: some View {
         List {
             ForEach(properties) { property in
@@ -18,8 +18,14 @@ struct MyPropertiesScreen: View {
             }
             .onDelete(perform: deleteProperty)
         }
-        .navigationTitle("My Properties")
+        .navigationTitle(isMyProperties ? "My Properties" : "My Favorite Properties")
         .onAppear {
+            getProperties()
+        }
+    }
+    
+    func getProperties() {
+        if isMyProperties {
             FirestoreManager.shared.getProperties { (properties, error) in
                 if let error = error {
                     print("Error fetching properties: \(error.localizedDescription)")
@@ -29,18 +35,39 @@ struct MyPropertiesScreen: View {
                     }
                 }
             }
+        } else {
+            FirestoreManager.shared.fetchFavouriteList { properties, error in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else if let properties = properties {
+                    self.properties = properties
+                }
+            }
         }
     }
     
     func deleteProperty(at indexSet: IndexSet) {
         guard let index = indexSet.first else { return }
         let propertyId = properties[index].id.uuidString
-        FirestoreManager.shared.deleteProperty(propertyID: propertyId) { error in
-            if let error = error {
-                print("Error deleting property from Firestore: \(error.localizedDescription)")
-            } else {
-                print("Property deleted successfully")
-                properties.remove(atOffsets: indexSet)
+        
+        if isMyProperties {
+            FirestoreManager.shared.deleteProperty(propertyID: propertyId) { error in
+                if let error = error {
+                    print("Error deleting property from Firestore: \(error.localizedDescription)")
+                } else {
+                    print("Property deleted successfully")
+                    properties.remove(atOffsets: indexSet)
+                }
+            }
+        }
+        else {
+            FirestoreManager.shared.deleteFavoriteProperty(favoritePropertyId: propertyId) { err in
+                if let error = err {
+                    print("Error removing favorite property: \(error.localizedDescription)")
+                } else {
+                    print("Favorite property removed successfully")
+                    properties.remove(atOffsets: indexSet)
+                }
             }
         }
     }

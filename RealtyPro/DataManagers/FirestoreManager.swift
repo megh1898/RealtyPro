@@ -153,6 +153,7 @@ class FirestoreManager {
                 AppUtility.shared.email = userData["email"] as? String ?? ""
                 AppUtility.shared.name = userData["name"] as? String ?? ""
                 AppUtility.shared.phone = userData["phone"] as? String ?? ""
+                AppUtility.shared.profileImage = userData["profileImage"] as? String ?? ""
             } else {
                 print("User document not found")
             }
@@ -233,35 +234,127 @@ class FirestoreManager {
         }
     }
     
-//    func fetchFavouriteList(completion: @escaping ([Property]?,Error?) -> Void) {
-//        let db = Firestore.firestore()
-//        let imagesCollection = db.collection("users").document(AppUtility.shared.userId!).collection("favorites")
-//        
-//        imagesCollection.getDocuments { snapshot, error in
-//            
-//            
-//            if let error = error {
-//                completion([], error)
-//                return
-//            }
-//            var ids = [String]()
-//            if let snapshot = snapshot {
-//                for document in snapshot.documents {
-//                    let data = document.data()
-//                    guard let id = data["favoriteImageID"] as? String else { continue }
-//                    ids.append(id)
-//                    
-//                }
-//            }
-//            if ids.count > 0 {
-//                self.getDataForSelectedIDs(selectedIDs: ids) { images in
-//                    completion(images, nil)
-//                }
-//            }
-//            else {
-//                completion([], nil)
-//            }
-//        }
-//    }
+    func fetchFavouriteList(completion: @escaping ([Property]?, Error?) -> Void) {
+        guard let userId = AppUtility.shared.userId else {
+            completion([], NSError(domain: "Error Realty", code: 0, userInfo: [NSLocalizedDescriptionKey: "User ID not available."]))
+            return
+        }
+
+        let db = Firestore.firestore()
+        let propertiesCollection = db.collection("properties")
+        let userFavoritesCollection = db.collection("users").document(userId).collection("favoriteProperties")
+
+        userFavoritesCollection.getDocuments { snapshot, error in
+            if let error = error {
+                completion([], error)
+                return
+            }
+
+            var favoriteIds = [String]()
+
+            if let snapshot = snapshot {
+                for document in snapshot.documents {
+                    let data = document.data()
+                    guard let id = data["propertyId"] as? String else { continue }
+                    favoriteIds.append(id)
+                }
+            }
+
+            if favoriteIds.count > 0 {
+                propertiesCollection.whereField("id", in: favoriteIds).getDocuments { propertiesSnapshot, propertiesError in
+                    if let propertiesError = propertiesError {
+                        completion([], propertiesError)
+                        return
+                    }
+
+                    var favoriteProperties = [Property]()
+
+                    if let propertiesSnapshot = propertiesSnapshot {
+                        for document in propertiesSnapshot.documents {
+                            do {
+                                let property = try document.data(as: Property.self)
+                                favoriteProperties.append(property)
+                            } catch {
+                                print("Error decoding property: \(error.localizedDescription)")
+                            }
+                        }
+                    }
+
+                    completion(favoriteProperties, nil)
+                }
+            } else {
+                // No favorite IDs, return empty array
+                completion([], nil)
+            }
+        }
+    }
     
+    func uploadData(image: UIImage, completion: @escaping (URL?, Error?) -> Void) {
+        let storage = Storage.storage()
+        let imageId = UUID().uuidString
+        let storageRef = storage.reference().child("profileImages").child("\(imageId).jpg")
+
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+            completion(nil, NSError(domain: "RealtyPro", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to convert image to data."]))
+            return
+        }
+
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+
+        storageRef.putData(imageData, metadata: metadata) { (metadata, error) in
+            if let error = error {
+                print("Error uploading image: \(error.localizedDescription)")
+                completion(nil, error)
+            } else {
+                storageRef.downloadURL { (url, error) in
+                    if let error = error {
+                        print("Error getting download URL: \(error.localizedDescription)")
+                        completion(nil, error)
+                    } else if let downloadURL = url {
+                        completion(downloadURL, nil)
+                    }
+                }
+            }
+        }
+    }
+
+    func updateLoggedInUserByUID(newName: String, newPhone: String, imageURL: String,
+                                 completion: @escaping (Bool) -> Void) {
+        guard let userId = AppUtility.shared.userId else {return}
+        let db = Firestore.firestore()
+        let usersCollection = db.collection("users")
+        let userDocument = usersCollection.document(userId)
+
+        userDocument.getDocument { (document, error) in
+            if let error = error {
+                print("Error getting user document: \(error)")
+                completion(false)
+                return
+            }
+
+            if let userData = document?.data() {
+
+                var updatedData = userData
+                updatedData["name"] = newName
+                updatedData["phone"] = newPhone
+                if !imageURL.isEmpty {
+                    updatedData["profileImage"] = imageURL
+                }
+                userDocument.updateData(updatedData) { error in
+                    if let error = error {
+                        print("Error updating user data: \(error)")
+                        completion(false)
+                    } else {
+                        print("User data updated successfully")
+                        completion(true)
+                    }
+                }
+            } else {
+                print("User document not found")
+                completion(false)
+            }
+        }
+    }
+
 }

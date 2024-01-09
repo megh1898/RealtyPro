@@ -16,8 +16,8 @@ struct HomeScreen: View {
         
         VStack {
             
-            Text("Hello, John")
-                .font(.title)
+            Text("RealtyPro")
+                .font(.title2)
                 .bold()
                 .padding(.horizontal, 1)
             

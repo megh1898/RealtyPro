@@ -4,8 +4,10 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct ProfileScreen: View {
+    @State private var imageURL: URL?
     var body: some View {
         NavigationView {
             VStack {
@@ -14,11 +16,13 @@ struct ProfileScreen: View {
                         HStack {
                             Spacer()
                             VStack(alignment: .center) {
-                                CustomImageView(image: UIImage(named: "home")!)
+                                WebImage(url: imageURL)
+                                    .renderingMode(.original)
+                                    .resizable()
                                     .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/)
                                     .clipShape(Circle())
                                 
-                                Text("John Doe")
+                                Text(AppUtility.shared.name ?? "")
                                     .bold()
                             }
                             Spacer()
@@ -29,13 +33,13 @@ struct ProfileScreen: View {
                         NavigationLink(destination: MyPropertiesScreen()) {
                             CustomProfileView(icon: "list.triangle", title: "My Properties")
                         }
-                        NavigationLink(destination: MyFavouritePropertiesScreen()) {
+                        NavigationLink(destination: MyPropertiesScreen(isMyProperties: false)) {
                             CustomProfileView(icon: "heart.square", title: "My Favourite Properties")
                         }
                     }
                     
                     Section {
-                        NavigationLink(destination: AccountDetailsScreen()) {
+                        NavigationLink(destination: ProfileInformationScreen()) {
                             CustomProfileView(icon: "person.circle", title: "Account Details")
                         }
                     }
@@ -50,14 +54,18 @@ struct ProfileScreen: View {
                     }
                 }
             }
-            .navigationBarTitle("Hello, John")
+            .navigationBarTitle("Hello, \(AppUtility.shared.name ?? "")")
+            .onAppear {
+                guard let url = AppUtility.shared.profileImage else {return} // string url
+                imageURL = URL(string: url)
+            }
         }
     }
 }
 
-#Preview {
-    ProfileScreen()
-}
+//#Preview {
+//    ProfileScreen()
+//}
 
 
 struct MyFavouritePropertiesScreen: View {
