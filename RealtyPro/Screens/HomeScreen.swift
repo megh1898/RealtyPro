@@ -111,6 +111,7 @@ struct SecondListItemView: View {
                 .renderingMode(.original)
                 .aspectRatio(contentMode: .fill)
                 .frame(maxWidth: (UIScreen.main.bounds.width / 2) - 20)
+                .frame(height: 180)
                 .clipped()
             
             VStack(alignment: .leading) {
@@ -165,10 +166,10 @@ struct ListItemView: View {
         VStack {
             Text(category.text)
                 .font(.headline)
-                .foregroundColor(.primary)
+                .foregroundColor(.white)
         }
         .padding(16)
-        .background(Color.blue.opacity(0.2))
+        .background(Color.blue.opacity(1))
         .cornerRadius(10)
     }
 }
@@ -187,11 +188,6 @@ struct ViewAllView: View {
         .padding([.horizontal, .bottom], 18)
     }
 }
-
-#Preview {
-    HomeScreen()
-}
-
 
 struct CategoriesModel: Identifiable, Hashable {
     let id = UUID()

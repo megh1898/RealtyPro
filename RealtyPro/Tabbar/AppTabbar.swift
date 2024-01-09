@@ -17,26 +17,33 @@ struct AppTabbar: View {
                     }
                     .tag(0)
                 
+                CollectionsScreen()
+                    .tabItem {
+                        Image(systemName: "square.3.layers.3d.top.filled")
+                        Text("Collections")
+                    }
+                    .tag(1)
+                
                 AddNewPropertyScreen()
                     .tabItem {
                         Image(systemName: "rectangle.stack.fill.badge.plus")
                         Text("Add New")
                     }
-                    .tag(1)
+                    .tag(2)
                 
                 LocationsOnMapScreen()
                     .tabItem {
                         Image(systemName: "map.circle.fill")
                         Text("Map")
                     }
-                    .tag(2)
+                    .tag(3)
                 
                 ProfileScreen(viewModel: viewModel)
                     .tabItem {
                         Image(systemName: "person.fill")
                         Text("Profile")
                     }
-                    .tag(3)
+                    .tag(4)
             }
             .accentColor(.blue)
             .toolbar(.hidden, for: .navigationBar)
