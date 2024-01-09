@@ -111,6 +111,7 @@ struct LoginChoicesView: View {
                 dismissButton: .default(Text("OK"))
             )
         }
+        
     }
 }
 

@@ -166,7 +166,3 @@ struct SelectedImagesView: View {
         }
     }
 }
-
-//#Preview {
-//    AddNewPropertyScreen()
-//}

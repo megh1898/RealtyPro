@@ -2,8 +2,6 @@
 //  LocationsOnMapScreen.swift
 //  RealtyPro
 //
-//  Created by Macbook on 09/01/2024.
-//
 
 import SwiftUI
 import MapKit
@@ -66,18 +64,6 @@ struct LocationsOnMapScreen: View {
             }
         }
     }
-
-//    private func updateMapRegion() {
-//        if let firstLocation = filteredLocations.first {
-//            mapRegion = MKCoordinateRegion(
-//                center: CLLocationCoordinate2D(
-//                    latitude: firstLocation.latitude,
-//                    longitude: firstLocation.longitude
-//                ),
-//                span: mapRegion.span
-//            )
-//        }
-//    }
 }
 
 

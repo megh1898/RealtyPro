@@ -145,7 +145,3 @@ struct ProfileInformationScreen: View {
         
     }
 }
-
-//#Preview {
-//    ProfileInformationScreen()
-//}
