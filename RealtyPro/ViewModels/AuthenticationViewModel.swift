@@ -18,8 +18,8 @@ enum CustomError: Error {
 final class AuthenticationViewModel: ObservableObject {
     
     @Published var name = ""
-    @Published var email = "megh@gmail.com"
-    @Published var password = "12121212"
+    @Published var email = ""
+    @Published var password = ""
     @Published var phone = ""
     @Published var confirmPassword = ""
     

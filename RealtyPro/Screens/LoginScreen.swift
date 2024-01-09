@@ -31,6 +31,13 @@ struct LoginScreen: View {
                     ProgressCustomView(title: "Signing In...")
                 }
             }
+            .onAppear {
+                viewModel.email = ""
+                viewModel.password = ""
+                viewModel.name = ""
+                viewModel.confirmPassword = ""
+                viewModel.phone = ""
+            }
         } else {
             AppTabbar(viewModel: viewModel)
         }

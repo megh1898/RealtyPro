@@ -34,6 +34,13 @@ struct SignupScreen: View {
                 dismissButton: .default(Text("OK"))
             )
         }
+        .onAppear {
+            viewModel.email = ""
+            viewModel.password = ""
+            viewModel.name = ""
+            viewModel.confirmPassword = ""
+            viewModel.phone = ""
+        }
     }
 }
 
