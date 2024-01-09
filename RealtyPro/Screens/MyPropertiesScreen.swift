@@ -6,31 +6,49 @@
 //
 
 import SwiftUI
-
-
+import SDWebImageSwiftUI
 
 struct MyPropertiesScreen: View {
     
     @State private var properties = [Property]()
     
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(properties) { property in
-                    PropertyRow(property: property)
-                }
-                .onDelete(perform: deleteProperty)
+        List {
+            ForEach(properties) { property in
+                PropertyRow(property: property)
             }
-            .navigationTitle("My Properties")
+            .onDelete(perform: deleteProperty)
+        }
+        .navigationTitle("My Properties")
+        .onAppear {
+            FirestoreManager.shared.getProperties { (properties, error) in
+                if let error = error {
+                    print("Error fetching properties: \(error.localizedDescription)")
+                } else {
+                    if let properties = properties {
+                        self.properties = properties
+                    }
+                }
+            }
         }
     }
     
-    func deleteProperty(at offsets: IndexSet) {
-        properties.remove(atOffsets: offsets)
+    func deleteProperty(at indexSet: IndexSet) {
+        guard let index = indexSet.first else { return }
+        let propertyId = properties[index].id.uuidString
+        FirestoreManager.shared.deleteProperty(propertyID: propertyId) { error in
+            if let error = error {
+                print("Error deleting property from Firestore: \(error.localizedDescription)")
+            } else {
+                print("Property deleted successfully")
+                properties.remove(atOffsets: indexSet)
+            }
+        }
     }
 }
 
 struct PropertyRow: View {
+    @State private var imageURL: URL?
     var property: Property
     
     var body: some View {
@@ -39,10 +57,11 @@ struct PropertyRow: View {
             ScrollView(.horizontal) {
                 HStack {
                     ForEach(property.imagePaths, id: \.self) { imagePath in
-                        Image(systemName: "photo")
+                        WebImage(url: imageURL)
                             .resizable()
+                            .renderingMode(.original)
                             .frame(width: 75, height: 75)
-                            .padding(5)
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
                 }
             }
@@ -63,6 +82,13 @@ struct PropertyRow: View {
             Text("\(property.filtersType)")
         }
         .padding()
+        .onAppear {
+            FirestoreManager.shared.getImageURL(for: property.imagePaths.first ?? "") { imageURL in
+                if let imageURL = imageURL {
+                    self.imageURL = imageURL
+                } else { }
+            }
+        }
     }
 }
 

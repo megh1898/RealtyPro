@@ -9,7 +9,6 @@ struct ProfileScreen: View {
     var body: some View {
         NavigationView {
             VStack {
-                                
                 Form {
                     Section {
                         HStack {
@@ -27,12 +26,18 @@ struct ProfileScreen: View {
                     }
                     
                     Section {
-                        CustomProfileView(icon: "list.triangle", title: "My Properties")
-                        CustomProfileView(icon: "heart.square", title: "My Favourite Properties")
+                        NavigationLink(destination: MyPropertiesScreen()) {
+                            CustomProfileView(icon: "list.triangle", title: "My Properties")
+                        }
+                        NavigationLink(destination: MyFavouritePropertiesScreen()) {
+                            CustomProfileView(icon: "heart.square", title: "My Favourite Properties")
+                        }
                     }
                     
                     Section {
-                        CustomProfileView(icon: "person.circle", title: "Account Details")
+                        NavigationLink(destination: AccountDetailsScreen()) {
+                            CustomProfileView(icon: "person.circle", title: "Account Details")
+                        }
                     }
                     
                     Section {
@@ -54,6 +59,21 @@ struct ProfileScreen: View {
     ProfileScreen()
 }
 
+
+struct MyFavouritePropertiesScreen: View {
+    var body: some View {
+        Text("My Favourite Properties Screen")
+            .navigationBarTitle("My Favourite Properties")
+    }
+}
+
+struct AccountDetailsScreen: View {
+    var body: some View {
+        Text("Account Details Screen")
+            .navigationBarTitle("Account Details")
+    }
+}
+
 struct CustomProfileView: View {
     let icon: String
     let title: String
@@ -61,11 +81,7 @@ struct CustomProfileView: View {
         HStack {
             Image(systemName: icon)
             Text(title)
-            
             Spacer()
-            
-            Image(systemName: "arrow.right")
-                .foregroundStyle(.tertiary)
         }
     }
 }

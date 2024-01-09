@@ -100,9 +100,11 @@ class FirestoreManager {
         }
     }
     
-    func getProperties(forOwner ownerID: String, completion: @escaping ([Property]?, Error?) -> Void) {
+    func getProperties(completion: @escaping ([Property]?, Error?) -> Void) {
+        guard let ownerID = AppUtility.shared.userId else {return}
+        
         let db = Firestore.firestore()
-        let collectionName = "properties" // Replace with your actual collection name
+        let collectionName = "properties"
             
         db.collection(collectionName)
             .whereField("owner", isEqualTo: ownerID)
@@ -122,5 +124,18 @@ class FirestoreManager {
                     completion(properties, nil)
                 }
             }
+    }
+    
+    func deleteProperty(propertyID: String, completion: @escaping (Error?) -> Void) {
+        let db = Firestore.firestore()
+        let collectionName = "properties"
+
+        db.collection(collectionName).document(propertyID).delete { error in
+            if let error = error {
+                completion(error)
+            } else {
+                completion(nil)
+            }
+        }
     }
 }

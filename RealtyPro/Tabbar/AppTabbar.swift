@@ -8,7 +8,7 @@ import SwiftUI
 
 struct AppTabbar: View {
     var body: some View {
-        NavigationStack{
+//        NavigationStack{
             TabView {
                 HomeScreen()
                     .tabItem {
@@ -47,10 +47,10 @@ struct AppTabbar: View {
             }
             .accentColor(.blue)
             .toolbar(.hidden, for: .navigationBar)
-            .onAppear {
-                let _ = try? AuthenticationManager.shared.getAuthenticatedUser()
-            }
-        }
+//            .onAppear {
+//                let _ = try? AuthenticationManager.shared.getAuthenticatedUser()
+//            }
+//        }
     }
 }
 
