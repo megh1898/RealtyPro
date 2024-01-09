@@ -7,8 +7,8 @@
 import SwiftUI
 
 struct AppTabbar: View {
+    @ObservedObject var viewModel: AuthenticationViewModel
     var body: some View {
-//        NavigationStack{
             TabView {
                 HomeScreen()
                     .tabItem {
@@ -16,44 +16,29 @@ struct AppTabbar: View {
                         Text("Home")
                     }
                     .tag(0)
-
-                Text("Second Tab")
-                    .tabItem {
-                        Image(systemName: "square.stack.3d.down.right.fill")
-                        Text("Collections")
-                    }
-                    .tag(1)
                 
                 AddNewPropertyScreen()
                     .tabItem {
                         Image(systemName: "rectangle.stack.fill.badge.plus")
                         Text("Add New")
                     }
+                    .tag(1)
+                
+                LocationsOnMapScreen()
+                    .tabItem {
+                        Image(systemName: "map.circle.fill")
+                        Text("Map")
+                    }
                     .tag(2)
                 
-                Text("Forth Tab")
-                    .tabItem {
-                        Image(systemName: "magnifyingglass.circle.fill")
-                        Text("Search")
-                    }
-                    .tag(3)
-                
-                ProfileScreen()
+                ProfileScreen(viewModel: viewModel)
                     .tabItem {
                         Image(systemName: "person.fill")
                         Text("Profile")
                     }
-                    .tag(4)
+                    .tag(3)
             }
             .accentColor(.blue)
             .toolbar(.hidden, for: .navigationBar)
-//            .onAppear {
-//                let _ = try? AuthenticationManager.shared.getAuthenticatedUser()
-//            }
-//        }
     }
-}
-
-#Preview {
-    AppTabbar()
 }

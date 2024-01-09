@@ -5,6 +5,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 enum CustomError: Error {
     case authenticationFailed
@@ -26,6 +27,7 @@ final class AuthenticationViewModel: ObservableObject {
     @Published var isProcessCompleted: (Bool, String) = (false, "")
     @Published var isInvalidLogin = false
     @Published var isInvalidSingup = false
+    @Published var isAuthenticated: Bool = false
     
     func login() {
         
@@ -33,16 +35,19 @@ final class AuthenticationViewModel: ObservableObject {
             isInvalidLogin = true
             return
         }
-        
+        isProcessing = true
         Task {
             do {
                 let user = try await AuthenticationManager.shared.loginUser(email: email, password: password)
                 isProcessCompleted = (true, "")
                 AppUtility.shared.email = email
                 AppUtility.shared.userId = user.uid
+                isAuthenticated = true
+                isProcessing = false
             } catch {
                 print("Error: \(error)")
                 isInvalidLogin = true
+                isProcessing = false
             }
         }
     }
@@ -66,6 +71,7 @@ final class AuthenticationViewModel: ObservableObject {
                 let result = try await AuthenticationManager.shared.registerUserInDatabase(user: returnedUserData, name: name, phone: phone)
                 isProcessing = false
                 isProcessCompleted = result
+                isAuthenticated = true
             } catch {
                 isProcessing = false
                 isProcessCompleted = (true, error.localizedDescription)
@@ -73,4 +79,13 @@ final class AuthenticationViewModel: ObservableObject {
         }
     }
     
+    func signOut() {
+        do {
+            try Auth.auth().signOut()
+            isAuthenticated = false
+            isProcessCompleted = (false, "")
+        } catch {
+            print("Error signing out: \(error.localizedDescription)")
+        }
+    }
 }

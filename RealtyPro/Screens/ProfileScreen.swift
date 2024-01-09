@@ -7,6 +7,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct ProfileScreen: View {
+    @ObservedObject var viewModel: AuthenticationViewModel
     @State private var imageURL: URL?
     var body: some View {
         NavigationView {
@@ -46,7 +47,7 @@ struct ProfileScreen: View {
                     
                     Section {
                         Button(action: {
-                            
+                            viewModel.signOut()
                         }, label: {
                             Text("Logout")
                                 .frame(maxWidth: .infinity)
@@ -62,11 +63,6 @@ struct ProfileScreen: View {
         }
     }
 }
-
-//#Preview {
-//    ProfileScreen()
-//}
-
 
 struct MyFavouritePropertiesScreen: View {
     var body: some View {

@@ -25,7 +25,7 @@ struct SignupScreen: View {
         }
         .ignoresSafeArea(.all)
         .navigationDestination(isPresented: $viewModel.isProcessCompleted.0) {
-            AppTabbar()
+            AppTabbar(viewModel: viewModel)
         }
         .alert(isPresented: $viewModel.isInvalidSingup) {
             Alert(

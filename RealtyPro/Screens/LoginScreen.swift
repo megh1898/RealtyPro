@@ -9,22 +9,32 @@ import SwiftUI
 struct LoginScreen: View {
     @StateObject private var viewModel = AuthenticationViewModel()
     var body: some View {
-        ZStack {
-            ImageContainerView()
-            VStack() {
-                AppTagView(title: "RealtyPro")
-                LoginFieldsView(viewModel: viewModel)
-                LoginChoicesView(viewModel: viewModel)
+        if !viewModel.isAuthenticated {
+            ZStack {
+                ZStack {
+                    ImageContainerView()
+                    VStack() {
+                        AppTagView(title: "RealtyPro")
+                        LoginFieldsView(viewModel: viewModel)
+                        LoginChoicesView(viewModel: viewModel)
+                    }
+                    .background(.ultraThinMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .padding(.horizontal, 20)
+                    
+                }
+                .ignoresSafeArea(.all)
+                .navigationDestination(isPresented: $viewModel.isProcessCompleted.0) {
+                    AppTabbar(viewModel: viewModel)
+                }
+                if viewModel.isProcessing {
+                    ProgressCustomView(title: "Signing In...")
+                }
             }
-            .background(.ultraThinMaterial)
-            .clipShape(RoundedRectangle(cornerRadius: 20))
-            .padding(.horizontal, 20)
-            
+        } else {
+            AppTabbar(viewModel: viewModel)
         }
-        .ignoresSafeArea(.all)
-        .navigationDestination(isPresented: $viewModel.isProcessCompleted.0) {
-            AppTabbar()
-        }
+        
     }
 }
 
