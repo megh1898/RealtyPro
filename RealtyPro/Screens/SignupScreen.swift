@@ -27,6 +27,13 @@ struct SignupScreen: View {
         .navigationDestination(isPresented: $viewModel.isProcessCompleted.0) {
             AppTabbar()
         }
+        .alert(isPresented: $viewModel.isInvalidSingup) {
+            Alert(
+                title: Text("Missing Fields"),
+                message: Text("Please fill all the fields"),
+                dismissButton: .default(Text("OK"))
+            )
+        }
     }
 }
 
@@ -39,9 +46,9 @@ struct SignupFieldsView: View {
         
         ZStack {
             VStack(spacing: -16) {
-                
                 CustomTextFieldView(title: "Name", text: $viewModel.name)
                 CustomTextFieldView(title: "Email", text: $viewModel.email)
+                CustomTextFieldView(title: "Phone", text: $viewModel.phone)
                 CustomSecureTextFieldView(title: "Password", text: $viewModel.password)
                 CustomSecureTextFieldView(title: "Confirm Password", text: $viewModel.confirmPassword)
                 

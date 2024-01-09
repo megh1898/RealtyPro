@@ -3,8 +3,6 @@
 //  RealtyPro
 //
 
-import Foundation
-
 import SwiftUI
 import FirebaseFirestore
 import Firebase
@@ -33,6 +31,7 @@ class AuthenticationManager: ObservableObject {
     //Signup
     func createUser(email: String, password: String) async throws -> AuthDataResultModel {
         let authData = try await Auth.auth().createUser(withEmail: email, password: password)
+        AppUtility.shared.userId = authData.user.uid
         return AuthDataResultModel(user: authData.user)
     }
     
@@ -49,7 +48,7 @@ class AuthenticationManager: ObservableObject {
         return AuthDataResultModel(user: user)
     }
     
-    func registerUserInDatabase(user: AuthDataResultModel) async throws -> (Bool, String) {
+    func registerUserInDatabase(user: AuthDataResultModel, name: String, phone: String) async throws -> (Bool, String) {
         let db = Firestore.firestore()
         let usersCollection = db.collection("users")
 
@@ -61,8 +60,9 @@ class AuthenticationManager: ObservableObject {
             } else {
                 let userData: [String: Any] = [
                     "email": user.email ?? "",
-                    "name": user.name ?? "",
-                    "id": user.uid
+                    "id": user.uid,
+                    "name": name,
+                    "phone": phone
                 ]
 
                 try await usersCollection.document(user.uid).setData(userData)

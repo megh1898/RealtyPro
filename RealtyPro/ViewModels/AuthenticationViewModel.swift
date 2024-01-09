@@ -19,11 +19,13 @@ final class AuthenticationViewModel: ObservableObject {
     @Published var name = ""
     @Published var email = "megh@gmail.com"
     @Published var password = "12121212"
+    @Published var phone = ""
     @Published var confirmPassword = ""
     
     @Published var isProcessing = false
     @Published var isProcessCompleted: (Bool, String) = (false, "")
     @Published var isInvalidLogin = false
+    @Published var isInvalidSingup = false
     
     func login() {
         
@@ -40,6 +42,7 @@ final class AuthenticationViewModel: ObservableObject {
                 AppUtility.shared.userId = user.uid
             } catch {
                 print("Error: \(error)")
+                isInvalidLogin = true
             }
         }
     }
@@ -49,16 +52,18 @@ final class AuthenticationViewModel: ObservableObject {
         if !email.isValidateEmail()
             || !password.isValidPassword()
             || name.isEmpty
-            || (password != confirmPassword) {
-            isProcessCompleted = (true, "Please fill all the fields")
+            || (password != confirmPassword)
+            || phone.isEmpty {
+            isInvalidSingup = true
             return
         }
+        
         isProcessing = true
         
         Task {
             do {
                 let returnedUserData = try await AuthenticationManager.shared.createUser(email: email, password: password)
-                let result = try await AuthenticationManager.shared.registerUserInDatabase(user: returnedUserData)
+                let result = try await AuthenticationManager.shared.registerUserInDatabase(user: returnedUserData, name: name, phone: phone)
                 isProcessing = false
                 isProcessCompleted = result
             } catch {

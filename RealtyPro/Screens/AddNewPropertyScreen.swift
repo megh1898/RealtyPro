@@ -85,7 +85,9 @@ struct AddNewPropertyScreen: View {
                                                             latitude: searchedLocation?.location.coordinate.latitude ?? 0,
                                                             longitude: searchedLocation?.location.coordinate.longitude ?? 0,
                                                             filtersType: filtersType, imagePaths: [], 
-                                                            owner: AppUtility.shared.userId!)
+                                                            owner: AppUtility.shared.userId!,
+                                                            ownerEmail: AppUtility.shared.email!,
+                                                            ownerPhone: AppUtility.shared.phone!)
                                     
                                     addProperty(property: property, images: selectedImages)
                                 } else {

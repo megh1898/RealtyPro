@@ -17,6 +17,8 @@ struct Property: Identifiable, Codable {
     var filtersType: String
     var imagePaths: [String]
     var owner: String
+    var ownerEmail: String
+    var ownerPhone: String
     
     var asDictionary: [String: Any] {
         [
@@ -29,7 +31,9 @@ struct Property: Identifiable, Codable {
             "longitude": longitude,
             "filtersType": filtersType,
             "imagePaths": imagePaths,
-            "owner": owner
+            "owner": owner,
+            "ownerEmail": ownerEmail,
+            "ownerPhone": ownerPhone
         ]
     }
 }

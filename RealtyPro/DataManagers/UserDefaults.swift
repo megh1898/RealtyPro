@@ -9,6 +9,7 @@ import Foundation
 struct UserDefaultsKeys {
     static let email = "email"
     static let name = "name"
+    static let phone = "phone"
     static let address = "address"
     static let userId = "userId"
     static let latitude = "latitude"
@@ -21,13 +22,7 @@ struct UserDefaultsKeys {
 }
 
 class AppUtility: NSObject, ObservableObject {
-     
-//    override init() {
-//        super.init()
-//        email = UserDefaults.standard.object(forKey: UserDefaultsKeys.email) as? String
-//        name = UserDefaults.standard.object(forKey: UserDefaultsKeys.name) as? String
-//    }
-//    
+    
     static let shared = AppUtility()
     
     var email: String? {
@@ -41,6 +36,13 @@ class AppUtility: NSObject, ObservableObject {
             UserDefaults.standard.set(self.name, forKey: UserDefaultsKeys.name)
         }
     }
+    
+    var phone: String? {
+        didSet {
+            UserDefaults.standard.set(self.phone, forKey: UserDefaultsKeys.phone)
+        }
+    }
+    
     
     var userId: String? {
         didSet {

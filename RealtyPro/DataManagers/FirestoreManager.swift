@@ -138,4 +138,130 @@ class FirestoreManager {
             }
         }
     }
+    
+    func getLoggedInUserByUID(uid: String) {
+        let db = Firestore.firestore()
+        let usersCollection = db.collection("users")
+
+        usersCollection.document(uid).getDocument { (document, error) in
+            if let error = error {
+                print("Error getting user document: \(error)")
+                return
+            }
+
+            if let userData = document?.data() {
+                AppUtility.shared.email = userData["email"] as? String ?? ""
+                AppUtility.shared.name = userData["name"] as? String ?? ""
+                AppUtility.shared.phone = userData["phone"] as? String ?? ""
+            } else {
+                print("User document not found")
+            }
+        }
+    }
+    
+    func addFavorite(propertyId: String, completion: @escaping (Error?) -> Void) {
+        guard let userId = AppUtility.shared.userId else {return}
+        
+        let db = Firestore.firestore()
+        let favoritesCollection = db.collection("users").document(userId).collection("favoriteProperties")
+        
+        let data: [String: Any] = [
+            "propertyId": propertyId,
+        ]
+        
+        favoritesCollection.addDocument(data: data) { error in
+            if let error = error {
+                print("Error adding favorite: \(error.localizedDescription)")
+                completion(error)
+            } else {
+                completion(nil)
+            }
+        }
+    }
+    
+    func deleteFavoriteProperty(favoritePropertyId: String, completion: @escaping (Error?) -> Void) {
+        guard let userId = AppUtility.shared.userId else {return}
+        
+        let db = Firestore.firestore()
+        let properties = db.collection("users").document(userId).collection("favoriteProperties")
+        
+        let query = properties.whereField("propertyId", isEqualTo: favoritePropertyId)
+        
+        query.getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error querying favorites: \(error.localizedDescription)")
+                completion(error)
+                return
+            }
+            
+            // Delete each document that matches the query
+            let batch = db.batch()
+            snapshot?.documents.forEach { document in
+                batch.deleteDocument(properties.document(document.documentID))
+            }
+            
+            // Commit the batch delete
+            batch.commit { error in
+                if let error = error {
+                    print("Error deleting favorites: \(error.localizedDescription)")
+                    completion(error)
+                } else {
+                    print("Favorites deleted successfully.")
+                    completion(nil)
+                }
+            }
+        }
+    }
+
+    func isPropertyFavorite(propertyId: String, completion: @escaping (Bool, Error?) -> Void) {
+        guard let userId = AppUtility.shared.userId else {return}
+        
+        let db = Firestore.firestore()
+        let properties = db.collection("users").document(userId).collection("favoriteProperties")
+        properties.whereField("propertyId", isEqualTo: propertyId).getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error getting favorites: \(error.localizedDescription)")
+                completion(false, error)
+            } else {
+                if let snapshot = snapshot {
+                    let isFavorite = !snapshot.documents.isEmpty
+                    completion(isFavorite, nil)
+                } else {
+                    completion(false, nil)
+                }
+            }
+        }
+    }
+    
+//    func fetchFavouriteList(completion: @escaping ([Property]?,Error?) -> Void) {
+//        let db = Firestore.firestore()
+//        let imagesCollection = db.collection("users").document(AppUtility.shared.userId!).collection("favorites")
+//        
+//        imagesCollection.getDocuments { snapshot, error in
+//            
+//            
+//            if let error = error {
+//                completion([], error)
+//                return
+//            }
+//            var ids = [String]()
+//            if let snapshot = snapshot {
+//                for document in snapshot.documents {
+//                    let data = document.data()
+//                    guard let id = data["favoriteImageID"] as? String else { continue }
+//                    ids.append(id)
+//                    
+//                }
+//            }
+//            if ids.count > 0 {
+//                self.getDataForSelectedIDs(selectedIDs: ids) { images in
+//                    completion(images, nil)
+//                }
+//            }
+//            else {
+//                completion([], nil)
+//            }
+//        }
+//    }
+    
 }

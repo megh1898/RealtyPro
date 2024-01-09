@@ -5,11 +5,13 @@
 import SwiftUI
 import SDWebImageSwiftUI
 import MapKit
+import MessageUI
+
 
 struct PropertyDetailScreen: View {
     @State var property: Property
     @State private var imageURL: URL?
-    
+    @State private var isFavorite = false
     var body: some View {
         ZStack {
             ScrollView {
@@ -25,15 +27,21 @@ struct PropertyDetailScreen: View {
                     VStack(alignment: .leading, spacing: 8) {
                         
                         HStack {
-                            Text(property.name).font(.title).bold()
+                            VStack(alignment: .leading) {
+                                Text(property.name).font(.title).bold()
+                            }
                             Spacer()
-                            Button(action: {
-                                
-                            }, label: {
-                                Image(systemName: "heart.fill")
-                                    .font(.title2)
-                                    .tint(.red)
-                            })
+                            
+                            if property.owner != AppUtility.shared.userId {
+                                Button(action: {
+                                    favoriteProperty()
+                                }, label: {
+                                    let image = isFavorite ? "heart.fill" : "heart"
+                                    Image(systemName: image)
+                                        .font(.title2)
+                                        .tint(.red)
+                                })
+                            }
                         }
                         Divider()
                         Text(property.location).font(.body)
@@ -42,6 +50,25 @@ struct PropertyDetailScreen: View {
                         Text(property.details).font(.callout)
                             .foregroundColor(Color.primary.opacity(0.8))
                         Divider()
+                        
+                        if property.owner != AppUtility.shared.userId { 
+                            Text("Contact Seller?")
+                                .font(.callout)
+                                .foregroundStyle(.secondary)
+                            
+                            Text("Email at \(property.ownerEmail)")
+                            
+                            Button(action: {
+                                if let url = URL(string: "tel://\(property.ownerPhone)") {
+                                    UIApplication.shared.open(url)
+                                }
+                            }, label: {
+                                Text("Call at \(property.ownerPhone)")
+                            })
+                            
+                            Divider()
+                        }
+                        
                         
                         ZStack {
                             Map(coordinateRegion: .constant(MKCoordinateRegion(
@@ -58,7 +85,7 @@ struct PropertyDetailScreen: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
                     .padding(.horizontal, 20)
-
+                    
                     Spacer()
                 }
                 .frame(maxWidth: .infinity)
@@ -73,19 +100,30 @@ struct PropertyDetailScreen: View {
                     self.imageURL = imageURL
                 } else { }
             }
-        }
-        .navigationBarItems(trailing:
-                                Button(action: {
-            if let url = URL(string: "tel://\(0123456789)") {
-                UIApplication.shared.open(url)
+            
+            FirestoreManager.shared.isPropertyFavorite(propertyId: property.id.uuidString) { isFvrt, err in
+                if err == nil {
+                    self.isFavorite = isFvrt
+                }
             }
-        }) {
-            Image(systemName: "phone.fill")
-                .font(.title3)
-                .foregroundColor(.blue)
         }
-        )
-        
+    }
+    
+    private func favoriteProperty() {
+        let id = property.id.uuidString
+        if isFavorite {
+            FirestoreManager.shared.deleteFavoriteProperty(favoritePropertyId: id) { err in
+                if err == nil {
+                    isFavorite = false
+                }
+            }
+        } else {
+            FirestoreManager.shared.addFavorite(propertyId: id) { err in
+                if err == nil {
+                    isFavorite = true
+                }
+            }
+        }
     }
 }
 struct PropertyDetailScreen_Previews: PreviewProvider {
@@ -99,9 +137,11 @@ struct PropertyDetailScreen_Previews: PreviewProvider {
             longitude: -122.4194,
             filtersType: "Sale",
             imagePaths: ["https://picsum.photos/200"],
-            owner: "John Doe"
+            owner: "John Doe",
+            ownerEmail: "email@email.co",
+            ownerPhone: "0010020203"
         )
-
+        
         PropertyDetailScreen(property: sampleProperty)
     }
 }

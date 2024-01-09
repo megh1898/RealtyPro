@@ -41,6 +41,8 @@ struct HomeScreen: View {
             }
         }
         .onAppear {
+            FirestoreManager.shared.getLoggedInUserByUID(uid: AppUtility.shared.userId!)
+            
             FirestoreManager.shared.getAllProperties { result in
                 switch result {
                 case .success(let properties):
@@ -81,24 +83,6 @@ struct TitleView: View {
         }
     }
 }
-
-//struct PropertyListingView: View {
-//    @Binding var properties: [Property]
-//
-//    var body: some View {
-//        NavigationView {
-//            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
-//                ForEach(properties) { property in
-//                    NavigationLink(destination: PropertyDetailScreen(property: property)) {
-//                        SecondListItemView(property: property)
-//                            .padding(4)
-//                    }
-//                }
-//            }
-//            .padding()
-//        }
-//    }
-//}
 
 
 struct PropertyListingView: View {
@@ -150,6 +134,7 @@ struct SecondListItemView: View {
                 } else { }
             }
         }
+        
     }
 }
 
