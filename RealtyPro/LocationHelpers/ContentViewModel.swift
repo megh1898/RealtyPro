@@ -2,8 +2,6 @@
 //  ContentViewModel.swift
 //  RealtyPro
 //
-//  Created by Macbook on 08/01/2024.
-//
 
 import Combine
 import CoreLocation

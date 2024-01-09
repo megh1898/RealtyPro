@@ -2,8 +2,6 @@
 //  ProfileInformationScreen.swift
 //  RealtyPro
 //
-//  Created by Macbook on 07/01/2024.
-//
 
 import SwiftUI
 

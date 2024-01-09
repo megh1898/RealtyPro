@@ -2,8 +2,7 @@
 //  SearchLocationsScreen.swift
 //  RealtyPro
 //
-//  Created by Macbook on 09/01/2024.
-//
+
 
 import SwiftUI
 

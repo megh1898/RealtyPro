@@ -2,8 +2,7 @@
 //  NewPropertyModel.swift
 //  RealtyPro
 //
-//  Created by Macbook on 01/01/2024.
-//
+
 
 import Foundation
 

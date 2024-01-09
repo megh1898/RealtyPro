@@ -2,8 +2,7 @@
 //  LocalSearchViewData.swift
 //  RealtyPro
 //
-//  Created by Macbook on 08/01/2024.
-//
+
 
 import CoreLocation
 import MapKit
