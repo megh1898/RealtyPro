@@ -113,8 +113,8 @@ struct LoginChoicesView: View {
         .padding(20)
         .alert(isPresented: $viewModel.isInvalidLogin) {
             Alert(
-                title: Text("Invalid Login Credentials"),
-                message: Text("Please enter valid Email and Password"),
+                title: Text("Alert"),
+                message: Text(viewModel.errorMessage),
                 dismissButton: .default(Text("OK"))
             )
         }

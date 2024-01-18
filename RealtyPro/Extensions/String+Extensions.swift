@@ -16,7 +16,7 @@ extension String {
     }
     
     func isValidPassword() -> Bool {
-        if self.count > 6 && self.count < 10 {
+        if self.count > 6 {
             return true
         } else {
             return false

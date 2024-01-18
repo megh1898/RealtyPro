@@ -12,6 +12,12 @@ struct PropertyDetailScreen: View {
     @State var property: Property
     @State private var imageURL: URL?
     @State private var isFavorite = false
+    @State private var showAlert = false
+    @State private var ownerName = ""
+    @State var price: String = ""
+    @State var alertMessage: String = ""
+    
+    @State var sellerProfile: UserProfileModel? = nil
     var body: some View {
         ZStack {
             ScrollView {
@@ -45,7 +51,7 @@ struct PropertyDetailScreen: View {
                         }
                         Divider()
                         Text(property.location).font(.body)
-                        Text("Price: $\(property.price)").font(.subheadline)
+                        Text("Price: $\(property.price)").font(.subheadline).bold()
                         Divider()
                         Text(property.details).font(.callout)
                             .foregroundColor(Color.primary.opacity(0.8))
@@ -69,6 +75,27 @@ struct PropertyDetailScreen: View {
                             Divider()
                         }
                         
+//                        if property.owner != AppUtility.shared.userId {
+// 
+//                            TextField("Enter an Amountmak", text: $price)
+//                                .keyboardType(.numberPad)
+//                                .padding()
+//                            
+//                            Button(action: {
+//                                makeOffer()
+//                            }, label: {
+//                                Text("Make Offer")
+//                                    .frame(height: 20)
+//                                    .frame(minWidth: 0, maxWidth: .infinity)
+//                                    .padding()
+//                                    .foregroundColor(.white)
+//                                    .background(Color.blue)
+//                                    .cornerRadius(6)
+//                                    .bold()
+//                            })
+//                            
+//                            Divider()
+//                        }
                         
                         ZStack {
                             Map(coordinateRegion: .constant(MKCoordinateRegion(
@@ -106,7 +133,39 @@ struct PropertyDetailScreen: View {
                     self.isFavorite = isFvrt
                 }
             }
+            
+            FirestoreManager.shared.getUserByUID(uid: property.owner) { profile, error in
+                if profile != nil {
+                    ownerName = profile?.name ?? ""
+                    self.sellerProfile = profile
+                }
+            }
         }
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Alert"),
+                message: Text(alertMessage),
+                dismissButton: .default(Text("OK"))
+            )
+        }
+    }
+    
+    private func makeOffer() {
+        if price.isEmpty {
+            showAlert = true
+            alertMessage = "Please enter an amount."
+            return
+        }
+        else if Int(price) == 0 {
+            showAlert = true
+            alertMessage = "Please enter valid amount."
+            return
+        } else {
+            showAlert = true
+            alertMessage = "Offer sent to seller. You will be notified when sellet accepts the offer."
+        }
+        
+        
     }
     
     private func favoriteProperty() {
@@ -145,3 +204,4 @@ struct PropertyDetailScreen_Previews: PreviewProvider {
         PropertyDetailScreen(property: sampleProperty)
     }
 }
+

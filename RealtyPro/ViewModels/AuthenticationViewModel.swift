@@ -18,8 +18,8 @@ enum CustomError: Error {
 final class AuthenticationViewModel: ObservableObject {
     
     @Published var name = ""
-    @Published var email = ""
-    @Published var password = ""
+    @Published var email = "megh@gmail.com"
+    @Published var password = "12121212"
     @Published var phone = ""
     @Published var confirmPassword = ""
     
@@ -27,12 +27,18 @@ final class AuthenticationViewModel: ObservableObject {
     @Published var isProcessCompleted: (Bool, String) = (false, "")
     @Published var isInvalidLogin = false
     @Published var isInvalidSingup = false
+    @Published var errorMessage = ""
     @Published var isAuthenticated: Bool = false
     
     func login() {
         
-        if !email.isValidateEmail() || !password.isValidPassword() {
+        if !email.isValidateEmail() {
             isInvalidLogin = true
+            errorMessage = "Invalid email address"
+            return
+        } else if !password.isValidPassword() {
+            isInvalidLogin = true
+            errorMessage = "Invalid password format, Minimum password length should be 7 characters"
             return
         }
         isProcessing = true
@@ -47,6 +53,7 @@ final class AuthenticationViewModel: ObservableObject {
             } catch {
                 print("Error: \(error)")
                 isInvalidLogin = true
+                errorMessage = error.localizedDescription
                 isProcessing = false
             }
         }
@@ -54,13 +61,35 @@ final class AuthenticationViewModel: ObservableObject {
     
     func registerUser() {
         
-        if !email.isValidateEmail()
-            || !password.isValidPassword()
-            || name.isEmpty
-            || (password != confirmPassword)
-            || phone.isEmpty {
+        if name.isEmpty {
+            errorMessage = "Name cannot be empty"
             isInvalidSingup = true
             return
+        }
+        
+        else if !email.isValidateEmail() {
+            errorMessage = "Invalid email format"
+            isInvalidSingup = true
+            return
+        }
+
+        else if phone.isEmpty {
+            errorMessage = "Phone number cannot be empty"
+            isInvalidSingup = true
+            return
+        }
+        
+        else if !password.isValidPassword() {
+            errorMessage = "Invalid password format, Minimum password length should be 7 characters"
+            isInvalidSingup = true
+            return
+        }
+        
+        else if password != confirmPassword {
+            errorMessage = "Password and confirm password do not match"
+            isInvalidSingup = true
+            return
+            
         }
         
         isProcessing = true
@@ -73,8 +102,9 @@ final class AuthenticationViewModel: ObservableObject {
                 isProcessCompleted = result
                 isAuthenticated = true
             } catch {
+                isInvalidSingup = true
                 isProcessing = false
-                isProcessCompleted = (true, error.localizedDescription)
+                errorMessage = error.localizedDescription
             }
         }
     }

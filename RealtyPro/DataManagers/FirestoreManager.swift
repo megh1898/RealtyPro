@@ -139,23 +139,34 @@ class FirestoreManager {
         }
     }
     
-    func getLoggedInUserByUID(uid: String) {
+    func getUserByUID(uid: String, completion: @escaping (UserProfileModel?, String?) -> Void) {
         let db = Firestore.firestore()
         let usersCollection = db.collection("users")
 
         usersCollection.document(uid).getDocument { (document, error) in
             if let error = error {
                 print("Error getting user document: \(error)")
+                completion(nil, error.localizedDescription)
                 return
             }
 
             if let userData = document?.data() {
-                AppUtility.shared.email = userData["email"] as? String ?? ""
-                AppUtility.shared.name = userData["name"] as? String ?? ""
-                AppUtility.shared.phone = userData["phone"] as? String ?? ""
-                AppUtility.shared.profileImage = userData["profileImage"] as? String ?? ""
+                let email = userData["email"] as? String ?? ""
+                let name = userData["name"] as? String ?? ""
+                let phone = userData["phone"] as? String ?? ""
+                let profileImage = userData["profileImage"] as? String ?? ""
+                if uid == AppUtility.shared.userId {
+                    AppUtility.shared.email = email
+                    AppUtility.shared.name = name
+                    AppUtility.shared.phone = phone
+                    AppUtility.shared.profileImage = profileImage
+                } else {
+                    let user = UserProfileModel(userId: uid, email: email, phone: phone, name: name, profileImage: profileImage)
+                    completion(user, nil)
+                }
             } else {
                 print("User document not found")
+                completion(nil, "User document not found")
             }
         }
     }

@@ -57,6 +57,7 @@ struct ProfileInformationScreen: View {
                         TextField("Name", text: $name)
                         TextField("Email", text: $email).disabled(true)
                         TextField("Phone", text: $phone)
+                            .keyboardType(.numberPad)
                     }
                     
                     Section {
@@ -83,7 +84,7 @@ struct ProfileInformationScreen: View {
             }
             .onAppear {
                 guard let id = AppUtility.shared.userId else {return}
-                FirestoreManager.shared.getLoggedInUserByUID(uid: id)
+                FirestoreManager.shared.getUserByUID(uid: id) { _, _ in }
                 name = AppUtility.shared.name ?? ""
                 phone = AppUtility.shared.phone ?? ""
                 email = AppUtility.shared.email ?? ""

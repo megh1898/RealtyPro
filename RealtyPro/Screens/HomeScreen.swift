@@ -41,7 +41,7 @@ struct HomeScreen: View {
             }
         }
         .onAppear {
-            FirestoreManager.shared.getLoggedInUserByUID(uid: AppUtility.shared.userId!)
+            FirestoreManager.shared.getUserByUID(uid: AppUtility.shared.userId!) { _, _ in }
             
             FirestoreManager.shared.getAllProperties { result in
                 switch result {

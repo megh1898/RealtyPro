@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA3E98742B58769100BA8B02 /* UserProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E98732B58769100BA8B02 /* UserProfileModel.swift */; };
+		FA3E98762B58839200BA8B02 /* OfferScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E98752B58839200BA8B02 /* OfferScreen.swift */; };
 		FA4796542B3CB92B00098B9F /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4796532B3CB92B00098B9F /* HomeScreen.swift */; };
 		FA4796562B3CC03700098B9F /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4796552B3CC03700098B9F /* AsyncImageView.swift */; };
 		FA4796582B409ED600098B9F /* AllPropertiesListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4796572B409ED600098B9F /* AllPropertiesListScreen.swift */; };
@@ -50,6 +52,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA3E98732B58769100BA8B02 /* UserProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileModel.swift; sourceTree = "<group>"; };
+		FA3E98752B58839200BA8B02 /* OfferScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferScreen.swift; sourceTree = "<group>"; };
 		FA4796532B3CB92B00098B9F /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		FA4796552B3CC03700098B9F /* AsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
 		FA4796572B409ED600098B9F /* AllPropertiesListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPropertiesListScreen.swift; sourceTree = "<group>"; };
@@ -108,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				FA4796642B432CE200098B9F /* NewPropertyModel.swift */,
+				FA3E98732B58769100BA8B02 /* UserProfileModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -178,6 +183,7 @@
 				FAFFADAE2B4D205A007ADBE9 /* MyPropertiesScreen.swift */,
 				FA8C29C02B4D63CE00428FEF /* LocationsOnMapScreen.swift */,
 				FA8C29C22B4D722000428FEF /* CollectionsScreen.swift */,
+				FA3E98752B58839200BA8B02 /* OfferScreen.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -336,12 +342,14 @@
 				FA4796542B3CB92B00098B9F /* HomeScreen.swift in Sources */,
 				FAB6B78C2B373DF80012495B /* LoginScreen.swift in Sources */,
 				FABB49BA2B4B143400230FD6 /* UserDefaults.swift in Sources */,
+				FA3E98742B58769100BA8B02 /* UserProfileModel.swift in Sources */,
 				FAFFADAD2B4C7FF6007ADBE9 /* SearchLocationsScreen.swift in Sources */,
 				FAFFADAB2B4C7CF3007ADBE9 /* LocalSearchViewData.swift in Sources */,
 				FAB6B7A52B3890410012495B /* AuthenticationViewModel.swift in Sources */,
 				FAFFADA92B4C7C96007ADBE9 /* ContentViewModel.swift in Sources */,
 				FAFFADA72B4C7C52007ADBE9 /* LocalSearchService.swift in Sources */,
 				FAB6B7AE2B38AF7A0012495B /* AppTabbar.swift in Sources */,
+				FA3E98762B58839200BA8B02 /* OfferScreen.swift in Sources */,
 				FA4796622B432C3D00098B9F /* FirestoreManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

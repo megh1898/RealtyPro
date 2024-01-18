@@ -29,8 +29,8 @@ struct SignupScreen: View {
         }
         .alert(isPresented: $viewModel.isInvalidSingup) {
             Alert(
-                title: Text("Missing Fields"),
-                message: Text("Please fill all the fields"),
+                title: Text("Alert"),
+                message: Text(viewModel.errorMessage),
                 dismissButton: .default(Text("OK"))
             )
         }

@@ -37,6 +37,7 @@ struct AddNewPropertyScreen: View {
                             TextField("Name", text: $name)
                             TextField("Details", text: $details)
                             TextField("Price", text: $price)
+                                .keyboardType(.numberPad)
                         }
                         
                         Section(header: Text("Property Location"))  {
@@ -81,7 +82,7 @@ struct AddNewPropertyScreen: View {
                             Button(action: {
                                 if isValidInput() {
                                     let property = Property(name: name, details: details,
-                                                            price: price, location: searchedLocation?.subtitle ?? "",
+                                                            price: price.removingLeadingZeros(), location: searchedLocation?.subtitle ?? "",
                                                             latitude: searchedLocation?.location.coordinate.latitude ?? 0,
                                                             longitude: searchedLocation?.location.coordinate.longitude ?? 0,
                                                             filtersType: filtersType, imagePaths: [], 
@@ -92,7 +93,6 @@ struct AddNewPropertyScreen: View {
                                     addProperty(property: property, images: selectedImages)
                                 } else {
                                     showAlert = true
-                                    alertMessage = "Please fill in all required fields."
                                 }
                             }, label: {
                                 Text("Add Property")
@@ -122,8 +122,40 @@ struct AddNewPropertyScreen: View {
     }
     
     private func isValidInput() -> Bool {
-        return !name.isEmpty && !details.isEmpty && !price.isEmpty && searchedLocation != nil && !selectedImages.isEmpty
+        
+        if name.isEmpty {
+            alertMessage = "Please enter a name."
+            return false
+        }
+        
+        if details.isEmpty {
+            alertMessage = "Please provide details."
+            return false
+        }
+        
+        if price.isEmpty {
+            alertMessage = "Please enter a price."
+            return false
+        }
+        
+        if Int(price) == 0 {
+            alertMessage = "Please enter valid price."
+            return false
+        }
+        
+        if searchedLocation == nil {
+            alertMessage = "Please select a location."
+            return false
+        }
+        
+        if selectedImages.isEmpty {
+            alertMessage = "Please choose at least one image."
+            return false
+        }
+        
+        return true
     }
+
     
     private func clearFields() {
         name = ""
@@ -164,5 +196,14 @@ struct SelectedImagesView: View {
                 }
             }
         }
+    }
+}
+extension String {
+    func removingLeadingZeros() -> String {
+        var result = self
+        while result.first == "0" {
+            result.removeFirst()
+        }
+        return result
     }
 }
